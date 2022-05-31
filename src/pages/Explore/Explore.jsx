@@ -12,7 +12,6 @@ export const Explore = () => {
     (async () => {
       try {
         const response = await axios.get("/api/posts");
-        console.log(response);
         dispatch(AddPost(response.data.posts));
       } catch (error) {
         console.log(error);
