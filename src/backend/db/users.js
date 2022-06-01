@@ -1,3 +1,4 @@
+import { getDefaultNormalizer } from "@testing-library/react";
 import { v4 as uuid } from "uuid";
 import { formatDate } from "../utils/authUtils";
 /**
@@ -8,10 +9,10 @@ import { formatDate } from "../utils/authUtils";
 export const users = [
   {
     _id: uuid(),
-    firstName: "Adarsh",
-    lastName: "Balika",
-    username: "adarshbalika",
-    password: "adarshBalika123",
+    firstName: "Archit",
+    lastName: "Singh",
+    username: "ArchitSingh1064",
+    password: "architSingh123",
     createdAt: formatDate(),
     updatedAt: formatDate(),
   },
