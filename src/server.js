@@ -87,6 +87,9 @@ export function makeServer({ environment = "development" } = {}) {
         "/users/unfollow/:followUserId/",
         unfollowUserHandler.bind(this)
       );
+      /*Cloudinary*/
+      this.passthrough();
+      this.passthrough(process.env.REACT_APP_CLOUDINARY_API_URL);
     },
   });
 }

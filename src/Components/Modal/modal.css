@@ -1,0 +1,43 @@
+.modal-wrapper {
+  width: inherit;
+  height: 100vh;
+  z-index: 9999;
+  position: fixed;
+}
+.modal {
+  width: fit-content;
+  padding: 1rem;
+  box-shadow: 1px 1px 5px 2px var(--color-box-shadow),
+    -1px -1px 5px 2px var(--color-box-shadow);
+  box-sizing: border-box;
+  background-color: white;
+}
+textarea {
+  width: 50rem;
+  height: 10rem;
+  padding: 1rem;
+  overflow: hidden;
+  font-size: 2rem;
+  resize: none;
+  border: 0px;
+}
+textarea:focus {
+  outline: 0px;
+}
+.image-tag {
+  font-size: 2rem;
+  cursor: pointer;
+}
+.modal input[type="file"] {
+  display: none;
+}
+.button-modal {
+  width: 10rem;
+  padding: 5px 1rem;
+  border-radius: 2.4rem;
+}
+.modal-img {
+  margin: 2rem 0;
+  width: 50rem;
+  object-fit: contain;
+}
