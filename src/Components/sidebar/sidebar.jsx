@@ -4,31 +4,61 @@ import { BsFillBookmarkFill } from "react-icons/bs";
 import { CgProfile } from "react-icons/cg";
 import { FiLogOut } from "react-icons/fi";
 import "./sidebar.css";
+import { NavLink, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { ToggleModal } from "../../reducer/postSlice";
 export const Sidebar = () => {
+  const dispatch = useDispatch();
+  const { navigate } = useNavigate();
   return (
     <div className="sidebar">
       <div className="logo-app">SocialGram</div>
-      <div className="icon-wrapper-active flex-row ">
+      <NavLink
+        className={({ isActive }) =>
+          isActive ? "icon-wrapper-active flex-row" : "icon-wrapper flex-row"
+        }
+        to="/home"
+      >
         <AiFillHome />
         <div className="icon-name">HOME</div>
-      </div>
-      <div className="icon-wrapper flex-row ">
+      </NavLink>
+      <NavLink
+        className={({ isActive }) =>
+          isActive ? "icon-wrapper-active flex-row" : "icon-wrapper flex-row"
+        }
+        to="/explore"
+      >
         <MdExplore />
         <div className="icon-name">EXPLORE</div>
-      </div>
-      <div className="icon-wrapper flex-row ">
+      </NavLink>
+      <NavLink
+        className={({ isActive }) =>
+          isActive ? "icon-wrapper-active flex-row" : "icon-wrapper flex-row"
+        }
+        to="/bookmark"
+      >
         <BsFillBookmarkFill />
         <div className="icon-name">BOOKMARK</div>
-      </div>
-      <div className="icon-wrapper flex-row ">
+      </NavLink>
+      <NavLink
+        className={({ isActive }) =>
+          isActive ? "icon-wrapper-active flex-row" : "icon-wrapper flex-row"
+        }
+        to="/profile"
+      >
         <CgProfile />
         <div className="icon-name">PROFILE</div>
-      </div>
-      <div className="icon-wrapper flex-row ">
+      </NavLink>
+      <div className="icon-wrapper flex-row">
         <FiLogOut />
         <div className="icon-name">LOGOUT</div>
       </div>
-      <div className="button-primary button-post flex-center">Post</div>
+      <div
+        className="button-primary button-post flex-center"
+        onClick={() => dispatch(ToggleModal(true))}
+      >
+        Post
+      </div>
     </div>
   );
 };

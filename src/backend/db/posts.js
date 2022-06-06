@@ -9,28 +9,159 @@ import { formatDate } from "../utils/authUtils";
 export const posts = [
   {
     _id: uuid(),
-    content:
-      "At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat.",
+    content: "You Want A War? Or Do You Wanna Just Give Me A Gun?",
     likes: {
       likeCount: 0,
       likedBy: [],
       dislikedBy: [],
     },
-    username: "adarshbalika",
+    username: "Baba_Yaga",
     createdAt: formatDate(),
     updatedAt: formatDate(),
+    postImage:
+      "https://res.cloudinary.com/dqlfw4xi2/image/upload/v1654082242/Richard-JohnWick_sjytto.jpg",
+    comments: [
+      {
+        _id: uuid(),
+        username: "The_Chosen_One",
+        text: "Wohooo",
+        votes: {
+          upvotedBy: [],
+          downvotedBy: [],
+        },
+      },
+      {
+        _id: uuid(),
+        username: "Iron_Man",
+        text: "John Wick 🔥",
+        votes: {
+          upvotedBy: [],
+          downvotedBy: [],
+        },
+      },
+    ],
+  },
+  {
+    _id: uuid(),
+    content: "Sometimes you gotta run before you walk.",
+    likes: {
+      likeCount: 0,
+      likedBy: [],
+      dislikedBy: [],
+    },
+    username: "Iron_Man",
+    createdAt: formatDate(),
+    updatedAt: formatDate(),
+    postImage:
+      "https://res.cloudinary.com/dqlfw4xi2/image/upload/v1654083377/Tony_Stark_Beard_with_Quiff_Hairstyle.width-800_jtfr5m.jpg",
+    comments: [
+      {
+        _id: uuid(),
+        username: "Geralt_Of_Rivia",
+        text: "Deep!",
+        votes: {
+          upvotedBy: [],
+          downvotedBy: [],
+        },
+      },
+      {
+        _id: uuid(),
+        username: "Baba_Yaga",
+        text: "Working on something big!",
+        votes: {
+          upvotedBy: [],
+          downvotedBy: [],
+        },
+      },
+    ],
   },
   {
     _id: uuid(),
     content:
-      "At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat.",
+      "You can change your whole life trajectory in six months of hard work",
     likes: {
       likeCount: 0,
       likedBy: [],
       dislikedBy: [],
     },
-    username: "shubhamsoni",
+    username: "Archit_",
     createdAt: formatDate(),
     updatedAt: formatDate(),
+    postImage: undefined,
+    comments: [],
+  },
+  {
+    _id: uuid(),
+    content: "Eat sleep code repeat",
+    likes: {
+      likeCount: 0,
+      likedBy: [],
+      dislikedBy: [],
+    },
+    username: "Archit_",
+    createdAt: formatDate(),
+    updatedAt: formatDate(),
+    postImage: undefined,
+    comments: [],
+  },
+  {
+    _id: uuid(),
+    content: "React JS at Core!",
+    likes: {
+      likeCount: 0,
+      likedBy: [],
+      dislikedBy: [],
+    },
+    username: "Archit_",
+    createdAt: formatDate(),
+    updatedAt: formatDate(),
+    postImage: undefined,
+    comments: [],
+  },
+  {
+    _id: uuid(),
+    content:
+      "If you only trust the people you grew up with ,you won't make many allies",
+    likes: {
+      likeCount: 0,
+      likedBy: [],
+      dislikedBy: [],
+    },
+    username: "King_of_North",
+    createdAt: formatDate(),
+    updatedAt: formatDate(),
+    postImage:
+      "https://res.cloudinary.com/dqlfw4xi2/image/upload/v1654270137/qiqbom7x7shq4c9drown.jpg",
+    comments: [],
+  },
+  {
+    _id: uuid(),
+    content:
+      "If I have to choose between one evil and another, then I prefer not to choose at all.",
+    likes: {
+      likeCount: 0,
+      likedBy: [],
+      dislikedBy: [],
+    },
+    username: "Geralt_Of_Rivia",
+    createdAt: formatDate(),
+    updatedAt: formatDate(),
+    postImage:
+      "https://res.cloudinary.com/dqlfw4xi2/image/upload/v1654083636/witcher_lmwke3.jpg",
+    comments: [],
+  },
+  {
+    _id: uuid(),
+    content: "It does not do to dwell on dreams and forget to live.",
+    likes: {
+      likeCount: 0,
+      likedBy: [],
+      dislikedBy: [],
+    },
+    username: "The_Chosen_One",
+    createdAt: formatDate(),
+    updatedAt: formatDate(),
+    postImage: undefined,
+    comments: [],
   },
 ];

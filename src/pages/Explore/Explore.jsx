@@ -1,27 +1,27 @@
 import { useEffect } from "react";
-import { Sidebar } from "../../Components";
-import axios from "axios";
+import { FollowSidebar, Modal, Post, Sidebar } from "../../Components";
 import { useDispatch, useSelector } from "react-redux";
-import { AddPost } from "../../reducer/postSlice";
+import { getUserData } from "../../reducer/user";
+import "./Explore.css";
+import { getPost } from "../../reducer/post";
 
 export const Explore = () => {
-  const { post } = useSelector((store) => store.posts);
-  console.log(post);
+  const { posts, modal } = useSelector((store) => store.posts);
   const dispatch = useDispatch();
+
   useEffect(() => {
-    (async () => {
-      try {
-        const response = await axios.get("/api/posts");
-        dispatch(AddPost(response.data.posts));
-      } catch (error) {
-        console.log(error);
-      }
-    })();
+    dispatch(getUserData());
+    dispatch(getPost());
   }, []);
 
   return (
     <main>
+      {modal && <Modal />}
       <Sidebar />
+      <div>
+        <Post />
+      </div>
+      {/* <FollowSidebar /> */}
     </main>
   );
 };

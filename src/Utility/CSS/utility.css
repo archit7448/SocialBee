@@ -57,3 +57,8 @@
 .text-sm {
   font-size: 2rem;
 }
+
+/* cursor */
+.cursor {
+  cursor: pointer;
+}
