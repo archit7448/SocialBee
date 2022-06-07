@@ -1,9 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getUserData } from "./user";
+import { followUser, getUserData } from "./user";
 
 const initialState = {
   users: [],
   status: "idle",
+  userData: JSON.parse(localStorage.getItem("user")),
 };
 
 const userSlice = createSlice({
@@ -18,6 +19,17 @@ const userSlice = createSlice({
       state.users = action.payload.users;
     },
     [getUserData.rejected]: (state, action) => {
+      state.status = "rejected";
+      state.error = action.payload;
+    },
+    [followUser.pending]: (state) => {
+      state.status = "pendindg";
+    },
+    [followUser.fulfilled]: (state, action) => {
+      state.status = "fullfilled";
+      state.userData = action.payload.user;
+    },
+    [followUser.rejected]: (state, action) => {
       state.status = "rejected";
       state.error = action.payload;
     },

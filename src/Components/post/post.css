@@ -1,8 +1,8 @@
 .post-wrapper {
   width: 45rem;
   box-sizing: border-box;
-  box-shadow: 1px 2px 20px 2px rgba(0, 0, 0, 0.1),
-    -1px -2px 20px 2px rgba(0, 0, 0, 0.1);
+  box-shadow: 1px 2px 20px 2px var(--color-box-shadow-2),
+    -1px -2px 20px 2px var(--color-box-shadow-2);
   padding: 1rem;
   margin: 2rem;
   display: flex;
@@ -30,11 +30,34 @@
   color: var(--color-icon);
   font-weight: 500;
   font-size: 1.6rem;
-  margin: 2rem 1rem;
+  margin: 1rem 0;
   background-color: var(--color-background-primary);
 }
 .post-profile h3 {
   margin: 0 2px;
   font-size: 1.6rem;
   font-weight: 400;
+}
+.fill-heart {
+  color: var(--color-red);
+}
+.features-wrapper {
+  width: 75%;
+  margin: 1rem 5rem;
+  justify-content: space-between;
+}
+
+.features-wrapper h1 {
+  font-size: 2.4rem;
+  font-weight: 400;
+}
+.edit-wrapper {
+  position: absolute;
+  transform: translate(-90%, -30%);
+  padding: 2px 2rem;
+  box-shadow: 1px 1px 2px 2px var(--color-box-shadow-2),
+    -1px -1px 2px 2px var(--color-box-shadow-2);
+}
+.edit-wrapper h2 {
+  font-weight: 500;
 }

@@ -10,6 +10,7 @@ export const posts = [
   {
     _id: uuid(),
     content: "You Want A War? Or Do You Wanna Just Give Me A Gun?",
+    disabledState: true,
     likes: {
       likeCount: 0,
       likedBy: [],
@@ -44,6 +45,7 @@ export const posts = [
   {
     _id: uuid(),
     content: "Sometimes you gotta run before you walk.",
+    disabledState: true,
     likes: {
       likeCount: 0,
       likedBy: [],
@@ -79,6 +81,7 @@ export const posts = [
     _id: uuid(),
     content:
       "You can change your whole life trajectory in six months of hard work",
+    disabledState: true,
     likes: {
       likeCount: 0,
       likedBy: [],
@@ -93,6 +96,7 @@ export const posts = [
   {
     _id: uuid(),
     content: "Eat sleep code repeat",
+    disabledState: true,
     likes: {
       likeCount: 0,
       likedBy: [],
@@ -107,6 +111,7 @@ export const posts = [
   {
     _id: uuid(),
     content: "React JS at Core!",
+    disabledState: true,
     likes: {
       likeCount: 0,
       likedBy: [],
@@ -122,6 +127,7 @@ export const posts = [
     _id: uuid(),
     content:
       "If you only trust the people you grew up with ,you won't make many allies",
+    disabledState: true,
     likes: {
       likeCount: 0,
       likedBy: [],
@@ -138,6 +144,7 @@ export const posts = [
     _id: uuid(),
     content:
       "If I have to choose between one evil and another, then I prefer not to choose at all.",
+    disabledState: true,
     likes: {
       likeCount: 0,
       likedBy: [],
@@ -153,6 +160,7 @@ export const posts = [
   {
     _id: uuid(),
     content: "It does not do to dwell on dreams and forget to live.",
+    disabledState: true,
     likes: {
       likeCount: 0,
       likedBy: [],

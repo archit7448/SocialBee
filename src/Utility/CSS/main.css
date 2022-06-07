@@ -11,6 +11,8 @@
   --color-icon: #2c3539;
   --color-background-secondary: #222230;
   --color-box-shadow: #00000080;
+  --color-red:#ff0000;
+  --color-box-shadow-2:#0000001a;
 }
 
 html {

@@ -33,3 +33,130 @@ export const addPostToDataBase = createAsyncThunk(
     }
   }
 );
+
+export const likePost = createAsyncThunk(
+  "/api/posts/like/:postId",
+  async (postId, { rejectWithValue }) => {
+    try {
+      const response = await axios.post(
+        `/api/posts/like/${postId}`,
+        {},
+        {
+          headers: {
+            authorization: token,
+          },
+        }
+      );
+      return response.data;
+    } catch (error) {
+      console.log(error);
+      return rejectWithValue(error);
+    }
+  }
+);
+
+export const dislikePost = createAsyncThunk(
+  "/api/posts/ dislike/:postId",
+  async (postId, { rejectWithValue }) => {
+    try {
+      const response = await axios.post(
+        `/api/posts/dislike/${postId}`,
+        {},
+        {
+          headers: {
+            authorization: token,
+          },
+        }
+      );
+      return response.data;
+    } catch (error) {
+      console.log(error);
+      return rejectWithValue(error);
+    }
+  }
+);
+
+export const bookMarkPost = createAsyncThunk(
+  "/api/users/bookmark/:postId",
+  async (postId, { rejectWithValue }) => {
+    try {
+      const response = await axios.post(
+        `/api/users/bookmark/${postId}`,
+        {},
+        {
+          headers: {
+            authorization: token,
+          },
+        }
+      );
+      return response.data;
+    } catch (error) {
+      console.log(error);
+      return rejectWithValue(error);
+    }
+  }
+);
+
+export const removeBookMarkPost = createAsyncThunk(
+  "/api/users/remove-bookmark/:postId",
+  async (postId, postData, { rejectWithValue }) => {
+    try {
+      const response = await axios.post(
+        `/api/users/remove-bookmark/${postId}`,
+        {
+          postData,
+        },
+        {
+          headers: {
+            authorization: token,
+          },
+        }
+      );
+      console.log(response);
+      return response.data;
+    } catch (error) {
+      console.log(error);
+      return rejectWithValue(error);
+    }
+  }
+);
+
+export const editPost = createAsyncThunk(
+  "/api/posts/edit/:postId",
+  async (data, { rejectWithValue }) => {
+    const { postData, postId } = data;
+    try {
+      const response = await axios.post(
+        `/api/posts/edit/${postId}`,
+        { postData },
+        {
+          headers: {
+            authorization: token,
+          },
+        }
+      );
+      return response.data;
+    } catch (error) {
+      console.log(error);
+      return rejectWithValue(error);
+    }
+  }
+);
+
+export const deletePost = createAsyncThunk(
+  "/api/posts/:postId",
+  async (postId, { rejectWithValue }) => {
+    try {
+      const response = await axios.delete(`/api/posts/${postId}`, {
+        headers: {
+          authorization: token,
+        },
+      });
+      console.log(response);
+      return response.data;
+    } catch (error) {
+      console.log(error);
+      return rejectWithValue(error);
+    }
+  }
+);

@@ -11,6 +11,7 @@ export const SignIn = () => {
     try {
       const response = await axios.post("/api/auth/login", params);
       localStorage.setItem("token", response.data.encodedToken);
+      localStorage.setItem("user", JSON.stringify(response.data.foundUser));
       navigate("/home");
     } catch (error) {
       console.log(error);

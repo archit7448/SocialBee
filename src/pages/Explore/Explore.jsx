@@ -13,15 +13,22 @@ export const Explore = () => {
     dispatch(getUserData());
     dispatch(getPost());
   }, []);
-
+  console.log(posts);
   return (
     <main>
       {modal && <Modal />}
       <Sidebar />
-      <div>
-        <Post />
+      <div className="post-wrapper-div flex-center flex-col">
+        <div className="logo-app logo-show">SocialGram</div>
+        {posts.length > 0 ? (
+          posts.map((data) => {
+            return <Post prop={{ data }} key={data._id} />;
+          })
+        ) : (
+          <></>
+        )}
       </div>
-      {/* <FollowSidebar /> */}
+      <FollowSidebar />
     </main>
   );
 };

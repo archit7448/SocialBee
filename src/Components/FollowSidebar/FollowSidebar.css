@@ -6,8 +6,11 @@
 }
 
 .follow-sidebar {
-  width: 28rem;
+  width: fit-content;
   display: flex;
+  position: sticky;
+  top: 0;
+  height: fit-content;
   flex-direction: column;
   padding: 1rem;
   margin: 2rem 0;
@@ -21,7 +24,7 @@
   justify-content: space-between;
 }
 .button-follow-sidebar {
-  height: fit-content;
+  /* height: fit-content; */
   font-size: 1.5rem;
   border-radius: 2.4rem;
   padding: 5px 2rem;
@@ -36,4 +39,28 @@
   font-size: 1.4rem;
   margin: 0 1rem;
   font-weight: 400;
+}
+
+@media screen and (max-width: 720px) {
+  .follow-sidebar {
+    display: none;
+  }
+  .post-wrapper-div {
+    margin-bottom: 8rem;
+  }
+  .post-wrapper {
+    width: 75%;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .follow-sidebar {
+    display: none;
+  }
+  .post-wrapper-div {
+    margin-bottom: 8rem;
+  }
+  .post-wrapper {
+    width: 85%;
+  }
 }
