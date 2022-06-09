@@ -82,22 +82,10 @@ export function makeServer({ environment = "development" } = {}) {
 
       //post comments routes (private)
       this.post("/comments/add/:postId", addPostCommentHandler.bind(this));
-      this.post(
-        "/comments/edit/:postId/:commentId",
-        editPostCommentHandler.bind(this)
-      );
-      this.delete(
-        "/comments/delete/:postId/:commentId",
-        deletePostCommentHandler.bind(this)
-      );
-      this.post(
-        "/comments/upvote/:postId/:commentId",
-        upvotePostCommentHandler.bind(this)
-      );
-      this.post(
-        "/comments/downvote/:postId/:commentId",
-        downvotePostCommentHandler.bind(this)
-      );
+      this.post("/comments/edit/:postId/:commentId",editPostCommentHandler.bind(this));
+      this.delete("/comments/delete/:postId/:commentId",deletePostCommentHandler.bind(this));
+      this.post("/comments/upvote/:postId/:commentId",upvotePostCommentHandler.bind(this));
+      this.post("/comments/downvote/:postId/:commentId",downvotePostCommentHandler.bind(this));
 
       // user routes (public)
       this.get("/users", getAllUsersHandler.bind(this));
@@ -107,21 +95,12 @@ export function makeServer({ environment = "development" } = {}) {
       this.post("users/edit", editUserHandler.bind(this));
       this.get("/users/bookmark", getBookmarkPostsHandler.bind(this));
       this.post("/users/bookmark/:postId/", bookmarkPostHandler.bind(this));
-      this.post(
-        "/users/remove-bookmark/:postId/",
-        removePostFromBookmarkHandler.bind(this)
-      );
+      this.post("/users/remove-bookmark/:postId/",removePostFromBookmarkHandler.bind(this));
       this.post("/users/follow/:followUserId/", followUserHandler.bind(this));
-      this.post(
-        "/users/unfollow/:followUserId/",
-        unfollowUserHandler.bind(this)
-      );
+      this.post("/users/unfollow/:followUserId/",unfollowUserHandler.bind(this));
       /*Cloudinary*/
       this.passthrough();
-      this.passthrough(
-        "https://api.cloudinary.com/v1_1/dqlfw4xi2/image/upload",
-        ["post"]
-      );
+      this.passthrough("https://api.cloudinary.com/v1_1/dqlfw4xi2/image/upload",["post"]);
     },
   });
 }
