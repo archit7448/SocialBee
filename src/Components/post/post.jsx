@@ -6,7 +6,7 @@ import { useState } from "react";
 import { ToggleDisable } from "../../reducer/postSlice";
 import { AiOutlineClose } from "react-icons/ai";
 import { deletePost } from "../../reducer/post";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 export const Post = ({ prop }) => {
   const { data } = prop;
   const dispatch = useDispatch();
@@ -14,7 +14,7 @@ export const Post = ({ prop }) => {
   const [showEdit, setShowEdit] = useState(false);
   const navigate = useNavigate();
   const checkUser = (username) => {
-    return userData.username == username ? true : false;
+    return userData !== null && userData.username == username ? true : false;
   };
 
   const FindUser = (usernameFind) => {
@@ -42,7 +42,10 @@ export const Post = ({ prop }) => {
   return (
     <div key={_id} className="post-wrapper">
       <div className="flex-row flex-space-between width-100">
-        <div className="flex-row cursor" onClick={() => ProfilePerPageHandler()}>
+        <div
+          className="flex-row cursor"
+          onClick={() => ProfilePerPageHandler()}
+        >
           <img src={profilePic} className="profile-post-pic" />
           <div className="flex-row flex-center post-profile">
             <h1>{`${firstName} ${lastName}`}</h1>
