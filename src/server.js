@@ -118,7 +118,7 @@ export function makeServer({ environment = "development" } = {}) {
       );
       /*Cloudinary*/
       this.passthrough();
-      this.passthrough(process.env.REACT_APP_CLOUDINARY_API_URL);
+      this.passthrough(process.env.REACT_APP_CLOUDINARY_API_URL,["post"]);
     },
   });
 }
