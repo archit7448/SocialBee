@@ -88,7 +88,7 @@ export const TextImageEdit = ({ prop }) => {
     try {
       setLoader(true);
       await fetch(process.env.REACT_APP_CLOUDINARY_API_URL ?? "", {
-        // method: "POST",
+        method: "POST",
         body: data,
       })
         .then((response) => response.json())
