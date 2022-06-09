@@ -5,12 +5,12 @@
   box-sizing: border-box;
 }
 :root {
-  --color-primary-first: black;
-  --color-primary-second: #0096FF;
-  --color-background-primary: white;
-  --color-icon: rgb(44, 53, 57);
+  --color-primary-first: #000000;
+  --color-primary-second: #0096ff;
+  --color-background-primary: #ffffff;
+  --color-icon: #2c3539;
   --color-background-secondary: #222230;
-  --color-box-shadow: rgba(0, 0, 0, 0.5);
+  --color-box-shadow: #00000080;
 }
 
 html {

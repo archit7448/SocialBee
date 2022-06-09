@@ -17,7 +17,7 @@ export const SignIn = () => {
     }
   };
   const setGuestCredentials = () => {
-    setEmail("ArchitSingh1064");
+    setEmail("Archit_");
     setPassword("architSingh123");
   };
 
