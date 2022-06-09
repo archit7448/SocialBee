@@ -6,14 +6,13 @@ import { useState } from "react";
 import { ToggleDisable } from "../../reducer/postSlice";
 import { AiOutlineClose } from "react-icons/ai";
 import { deletePost } from "../../reducer/post";
-
+import { useLocation, useNavigate } from "react-router-dom";
 export const Post = ({ prop }) => {
   const { data } = prop;
   const dispatch = useDispatch();
-  const { users } = useSelector((store) => store.users);
+  const { users, userData } = useSelector((store) => store.users);
   const [showEdit, setShowEdit] = useState(false);
-  const userData = JSON.parse(localStorage.getItem("user"));
-
+  const navigate = useNavigate();
   const checkUser = (username) => {
     return userData.username == username ? true : false;
   };
@@ -23,7 +22,8 @@ export const Post = ({ prop }) => {
     return find;
   };
 
-  const { content, postImage, _id, username, likes, disabledState } = data;
+  const { content, postImage, _id, username, likes, disabledState, comments } =
+    data;
   const { firstName, lastName, profilePic } = FindUser(username);
   const { likeCount } = likes;
   const EditHandler = () => {
@@ -33,10 +33,16 @@ export const Post = ({ prop }) => {
   const CloseHanlder = () => {
     dispatch(ToggleDisable(_id));
   };
+
+  const ProfilePerPageHandler = () => {
+    userData.username === username
+      ? navigate("/profile")
+      : navigate(`/pageProfile/${username}`);
+  };
   return (
     <div key={_id} className="post-wrapper">
       <div className="flex-row flex-space-between width-100">
-        <div className="flex-row">
+        <div className="flex-row cursor" onClick={() => ProfilePerPageHandler()}>
           <img src={profilePic} className="profile-post-pic" />
           <div className="flex-row flex-center post-profile">
             <h1>{`${firstName} ${lastName}`}</h1>
@@ -77,6 +83,7 @@ export const Post = ({ prop }) => {
           disabledState,
           _id,
           likeCount,
+          comments,
         }}
       />
     </div>

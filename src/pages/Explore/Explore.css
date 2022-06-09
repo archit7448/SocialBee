@@ -5,24 +5,43 @@ main {
   justify-content: space-between;
   position: relative;
 }
-
 .post-wrapper-div {
   flex-grow: 1;
 }
 .logo-show {
   display: none;
 }
-
+.post-header h2 {
+  font-size: 2rem;
+  font-weight: 400;
+}
+.post-header {
+  cursor: pointer;
+  display: flex;
+  width: 80%;
+  margin: 2rem 0;
+  justify-content: space-between;
+  padding: 1rem 2rem;
+  box-shadow: 1px 2px 2px 2px var(--color-box-shadow-2),
+    -1px -2px 2px 2px var(--color-box-shadow-2);
+  border-radius: 4px;
+}
+.button-header-post {
+  font-size: 1.6rem;
+  padding: 5px 2rem;
+  border-radius: 2.4rem;
+  cursor: pointer;
+}
 @media screen and (max-width: 720px) {
   main {
     width: 100%;
   }
-  .logo-show{
+  .logo-show {
     display: block;
     width: 100%;
     display: flex;
     justify-content: center;
     padding: 1rem;
-    box-shadow: 1px 2px 2px 2px rgba(0,0,0,0.2);
+    box-shadow: 1px 2px 2px 2px rgba(0, 0, 0, 0.2);
   }
 }

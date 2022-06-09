@@ -25,7 +25,7 @@ export const posts = [
       {
         _id: uuid(),
         username: "The_Chosen_One",
-        text: "Wohooo",
+        text: { textData: "Wohooo", disabledState: true },
         votes: {
           upvotedBy: [],
           downvotedBy: [],
@@ -34,7 +34,7 @@ export const posts = [
       {
         _id: uuid(),
         username: "Iron_Man",
-        text: "John Wick 🔥",
+        text: { textData: "John Wick 🔥", disabledState: true },
         votes: {
           upvotedBy: [],
           downvotedBy: [],
@@ -60,7 +60,7 @@ export const posts = [
       {
         _id: uuid(),
         username: "Geralt_Of_Rivia",
-        text: "Deep!",
+        text: { textData: "Deep!", disabledState: true },
         votes: {
           upvotedBy: [],
           downvotedBy: [],
@@ -69,7 +69,7 @@ export const posts = [
       {
         _id: uuid(),
         username: "Baba_Yaga",
-        text: "Working on something big!",
+        text: { textData: "Working on something big!", disabledState: true },
         votes: {
           upvotedBy: [],
           downvotedBy: [],

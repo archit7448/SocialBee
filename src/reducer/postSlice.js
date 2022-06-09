@@ -1,5 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
 import {
+  addCommentToDatabase,
+  deleteCommentToDatabase,
+  editCommentToDatabase,
+} from "./comment";
+import {
   addPostToDataBase,
   bookMarkPost,
   deletePost,
@@ -113,9 +118,40 @@ const postSlice = createSlice({
     [deletePost.rejected]: (state) => {
       state.status = "rejected";
     },
+    [addCommentToDatabase.pending]: (state) => {
+      state.status = "pending";
+    },
+    [addCommentToDatabase.fulfilled]: (state, action) => {
+      state.status = "fullfilled";
+      state.posts = action.payload.posts;
+    },
+    [addCommentToDatabase.rejected]: (state) => {
+      state.status = "rejected";
+    },
+    [editCommentToDatabase.pending]: (state) => {
+      state.status = "pending";
+    },
+    [editCommentToDatabase.fulfilled]: (state, action) => {
+      state.status = "fullfilled";
+      state.posts = action.payload.posts;
+    },
+    [editCommentToDatabase.rejected]: (state) => {
+      state.status = "rejected";
+    },
+    [deleteCommentToDatabase.pending]: (state) => {
+      state.status = "pending";
+    },
+    [deleteCommentToDatabase.fulfilled]: (state, action) => {
+      state.status = "fullfilled";
+      state.posts = action.payload.posts;
+    },
+    [deleteCommentToDatabase.rejected]: (state) => {
+      state.status = "rejected";
+    },
   },
 });
 
-export const { AddPost, ToggleModal, ToggleDisable } = postSlice.actions;
+export const { AddPost, ToggleModal, ToggleDisable, ToggleComment } =
+  postSlice.actions;
 
 export default postSlice.reducer;

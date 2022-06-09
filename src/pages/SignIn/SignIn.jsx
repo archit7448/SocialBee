@@ -12,7 +12,7 @@ export const SignIn = () => {
       const response = await axios.post("/api/auth/login", params);
       localStorage.setItem("token", response.data.encodedToken);
       localStorage.setItem("user", JSON.stringify(response.data.foundUser));
-      navigate("/home");
+      navigate("/");
     } catch (error) {
       console.log(error);
     }
@@ -25,7 +25,7 @@ export const SignIn = () => {
   return (
     <main className="flex-center">
       <div className="login-container">
-        <div className="logo-app">Welcome to SocialGram</div>
+        <div className="logo-login">Welcome to SocialGram</div>
         <h3 className="login-small-heading">Email</h3>
         <input
           type="text"

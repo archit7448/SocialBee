@@ -24,7 +24,47 @@ export const followUser = createAsyncThunk(
           },
         }
       );
-      console.log(response);
+      return response.data;
+    } catch (error) {
+      console.log(error);
+      return rejectWithValue(error);
+    }
+  }
+);
+export const unfollowUser = createAsyncThunk(
+  "/api/users/unfollow/:followUserId",
+  async (followUserId, { rejectWithValue }) => {
+    try {
+      const response = await axios.post(
+        `/api/users/unfollow/${followUserId}`,
+        {},
+        {
+          headers: {
+            authorization: token,
+          },
+        }
+      );
+      return response.data;
+    } catch (error) {
+      console.log(error);
+      return rejectWithValue(error);
+    }
+  }
+);
+
+export const EditUser = createAsyncThunk(
+  "/api/users/edit",
+  async (userData, { rejectWithValue }) => {
+    try {
+      const response = await axios.post(
+        `/api/users/edit`,
+        { userData },
+        {
+          headers: {
+            authorization: token,
+          },
+        }
+      );
       return response.data;
     } catch (error) {
       console.log(error);
