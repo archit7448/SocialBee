@@ -6,6 +6,7 @@ export const FollowSidebar = () => {
   const { users, userData } = useSelector((store) => store.users);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  console.log(userData, users);
   const userFilter = () => {
     return userData !== null
       ? users.filter(
