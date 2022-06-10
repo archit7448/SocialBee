@@ -18,12 +18,12 @@ import { useDispatch } from "react-redux";
 import { updateUserData } from "./reducer/userSlice";
 function App() {
   const dispatch = useDispatch();
+  const token = localStorage.getItem("token");
   useEffect(() => {
     dispatch(getUserData());
     dispatch(getPost());
     dispatch(updateUserData());
-  }, []);
-
+  }, [token]);
   return (
     <div className="App">
       <Routes>
