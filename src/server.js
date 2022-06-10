@@ -76,28 +76,29 @@ export function makeServer({ environment = "development" } = {}) {
       this.post("/posts/edit/:postId", editPostHandler.bind(this));
       this.post("/posts/like/:postId", likePostHandler.bind(this));
       this.post("/posts/dislike/:postId", dislikePostHandler.bind(this));
-       //post comments routes (public)
-       this.get("/comments/:postId", getPostCommentsHandler.bind(this));
 
-       //post comments routes (private)
-       this.post("/comments/add/:postId", addPostCommentHandler.bind(this));
-       this.post(
-         "/comments/edit/:postId/:commentId",
-         editPostCommentHandler.bind(this)
-       );
-       this.delete(
-         "/comments/delete/:postId/:commentId",
-         deletePostCommentHandler.bind(this)
-       );
-       this.post(
-         "/comments/upvote/:postId/:commentId",
-         upvotePostCommentHandler.bind(this)
-       );
-       this.post(
-         "/comments/downvote/:postId/:commentId",
-         downvotePostCommentHandler.bind(this)
-       );
- 
+      //post comments routes (public)
+      this.get("/comments/:postId", getPostCommentsHandler.bind(this));
+
+      //post comments routes (private)
+      this.post("/comments/add/:postId", addPostCommentHandler.bind(this));
+      this.post(
+        "/comments/edit/:postId/:commentId",
+        editPostCommentHandler.bind(this)
+      );
+      this.delete(
+        "/comments/delete/:postId/:commentId",
+        deletePostCommentHandler.bind(this)
+      );
+      this.post(
+        "/comments/upvote/:postId/:commentId",
+        upvotePostCommentHandler.bind(this)
+      );
+      this.post(
+        "/comments/downvote/:postId/:commentId",
+        downvotePostCommentHandler.bind(this)
+      );
+
       // user routes (public)
       this.get("/users", getAllUsersHandler.bind(this));
       this.get("/users/:userId", getUserHandler.bind(this));
@@ -117,7 +118,10 @@ export function makeServer({ environment = "development" } = {}) {
       );
       /*Cloudinary*/
       this.passthrough();
-      this.passthrough(process.env.REACT_APP_CLOUDINARY_API_URL);
+      this.passthrough(
+        "https://api.cloudinary.com/v1_1/dqlfw4xi2/image/upload",
+        ["post"]
+      );
     },
   });
 }

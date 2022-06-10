@@ -9,7 +9,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { ToggleModal } from "../../reducer/postSlice";
 export const Sidebar = () => {
   const dispatch = useDispatch();
-  const { navigate } = useNavigate();
+  const navigate = useNavigate();
+
+  const LogOutHandler = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    navigate("/login");
+  };
   return (
     <div className="sidebar">
       <div className="logo-app">SocialGram</div>
@@ -26,7 +32,7 @@ export const Sidebar = () => {
         className={({ isActive }) =>
           isActive ? "icon-wrapper-active flex-row" : "icon-wrapper flex-row"
         }
-        to="/explore"
+        to="/"
       >
         <MdExplore />
         <div className="icon-name">EXPLORE</div>
@@ -49,7 +55,7 @@ export const Sidebar = () => {
         <CgProfile />
         <div className="icon-name">PROFILE</div>
       </NavLink>
-      <div className="icon-wrapper flex-row">
+      <div className="icon-wrapper flex-row" onClick={() => LogOutHandler()}>
         <FiLogOut />
         <div className="icon-name">LOGOUT</div>
       </div>

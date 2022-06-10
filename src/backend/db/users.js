@@ -13,6 +13,7 @@ export const users = [
     lastName: "Singh",
     username: "Archit_",
     password: "architSingh123",
+    bio: "Aspiring Web developer",
     createdAt: formatDate(),
     updatedAt: formatDate(),
     profilePic:
@@ -24,6 +25,7 @@ export const users = [
     lastName: "Wick",
     username: "Baba_Yaga",
     password: "JohnWick",
+    bio: "Wnat to do good deed",
     createdAt: formatDate(),
     updatedAt: formatDate(),
     profilePic:
@@ -35,6 +37,7 @@ export const users = [
     lastName: "Potter",
     username: "The_Chosen_One",
     password: "HarryPotter",
+    bio: "Expecto Patronum",
     createdAt: formatDate(),
     updatedAt: formatDate(),
     profilePic:
@@ -46,6 +49,7 @@ export const users = [
     lastName: "Snow",
     username: "King_of_North",
     password: "JohnSnow",
+    bio: "Winter is coming",
     createdAt: formatDate(),
     updatedAt: formatDate(),
     profilePic:
@@ -57,6 +61,7 @@ export const users = [
     lastName: "Stark",
     username: "Iron_Man",
     password: "TonyStark",
+    bio: "Working for avengers",
     createdAt: formatDate(),
     updatedAt: formatDate(),
     profilePic:
@@ -68,6 +73,7 @@ export const users = [
     lastName: "Roger",
     username: "Geralt_Of_Rivia",
     password: "Geralt",
+    bio: "Trying to save Ciri",
     createdAt: formatDate(),
     updatedAt: formatDate(),
     profilePic:

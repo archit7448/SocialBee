@@ -4,10 +4,12 @@
   border-radius: 50%;
   object-fit: cover;
 }
-
 .follow-sidebar {
-  width: 28rem;
+  width: fit-content;
   display: flex;
+  position: sticky;
+  top: 0;
+  height: fit-content;
   flex-direction: column;
   padding: 1rem;
   margin: 2rem 0;
@@ -15,18 +17,15 @@
   box-shadow: 1px 1px 1px 0px var(--color-box-shadow),
     -1px -1px 1px 0px var(--color-box-shadow);
 }
-
 .follow-sidebar-profile {
   margin: 1rem 0;
   justify-content: space-between;
 }
 .button-follow-sidebar {
-  height: fit-content;
   font-size: 1.5rem;
   border-radius: 2.4rem;
   padding: 5px 2rem;
 }
-
 .follow-sidebar h2 {
   font-size: 1.8rem;
   margin: 0 1rem;
@@ -36,4 +35,20 @@
   font-size: 1.4rem;
   margin: 0 1rem;
   font-weight: 400;
+}
+@media screen and (max-width: 720px) {
+  .follow-sidebar {
+    display: none;
+  }
+  .post-wrapper-div {
+    margin-bottom: 8rem;
+  }
+  .post-wrapper {
+    width: 75%;
+  }
+}
+@media screen and (max-width: 480px) {
+  .post-wrapper {
+    width: 85%;
+  }
 }

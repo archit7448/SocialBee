@@ -1,20 +1,53 @@
 import { useRef, useState, useEffect } from "react";
 import { ImImages } from "react-icons/im";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { ToggleModal } from "../../reducer/postSlice";
-import { addPostToDataBase } from "../../reducer/post";
+import {
+  addPostToDataBase,
+  bookMarkPost,
+  dislikePost,
+  editPost,
+  likePost,
+  removeBookMarkPost,
+} from "../../reducer/post";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import { BsBookmark, BsFillBookmarkFill } from "react-icons/bs";
+import { FaRegComment } from "react-icons/fa";
+import "./textImageEdit.css";
+import { Comment } from "../Comment/comment";
+import { Loader } from "../../Utility/Loader/loader";
 
 export const TextImageEdit = ({ prop }) => {
-  const { textData, imagesData, disabledState } = prop;
+  const { bookMark } = useSelector((store) => store.posts);
+  const {
+    textData,
+    imagesData,
+    disabledState,
+    _id,
+    likeCount,
+    postState,
+    comments,
+  } = prop;
   const textAreaRef = useRef(null);
-  const dispatch = useDispatch();
   const [text, setText] = useState(textData);
   const [textAreaHeight, setTextAreaHeight] = useState("auto");
   const [parentHeight, setParentHeight] = useState("auto");
+  const dispatch = useDispatch();
   const fileInput = useRef(null);
   const [img, setImg] = useState(imagesData);
+  const user = JSON.parse(localStorage.getItem("user"));
+  const { profilePic } = user;
+  const { users } = useSelector((store) => store.users);
+  const [loader, setLoader] = useState(false);
+  const [showComment, setShowComment] = useState(false);
+  const getProfilePic = (username) => {
+    return users.find((usersData) => usersData.username === username)
+      .profilePic;
+  };
+
+  /*
+   For Textarea auto grow
+  */
 
   const parentStyle = {
     minHeight: parentHeight,
@@ -29,40 +62,76 @@ export const TextImageEdit = ({ prop }) => {
     setTextAreaHeight(`${textAreaRef.current?.scrollHeight}px`);
   }, [text]);
 
+  useEffect(() => {
+    setText(textData);
+    setImg(img);
+  }, [disabledState]);
+
   const onChangeHandler = (event) => {
     setTextAreaHeight("auto");
     setParentHeight(`${textAreaRef.current?.scrollHeight}px`);
     setText(event.target.value);
   };
 
+  /**
+   * For Image api request and Image handler
+   */
+
   const HandleImageSelected = async () => {
     const data = new FormData();
     data.append("file", fileInput.current.files[0]);
-    data.append(
-      "upload_preset",
-      process.env.REACT_APP_CLOUDINARY_API_PRESET ?? ""
-    );
+    data.append("upload_preset", "cmr8t2pi");
 
     try {
-      await fetch(process.env.REACT_APP_CLOUDINARY_API_URL ?? "", {
+      setLoader(true);
+      await fetch("https://api.cloudinary.com/v1_1/depmzczni/image/upload", {
         method: "POST",
         body: data,
       })
         .then((response) => response.json())
-        .then((json) => setImg(() => json.url));
+        .then((json) => setImg(() => json.url))
+        .catch((error) => {
+          console.log(error);
+        });
+      setLoader(false);
     } catch (error) {
       console.log(error);
     }
   };
 
-  const postHandler = () => {
-    dispatch(addPostToDataBase({ content: text, postImage: img }));
+  // BookMark Handler
+
+  const BookMarkHandler = (_id) => {
+    return bookMark.find((bookMarkData) => bookMarkData._id === _id);
+  };
+
+  // Post Handler
+
+  const EditHandler = () => {
+    dispatch(
+      editPost({
+        postData: { content: text, postImage: img, disabledState: true },
+        postId: _id,
+      })
+    );
+  };
+
+  const PostUpdate = () => {
+    dispatch(
+      addPostToDataBase({
+        content: text,
+        postImage: img,
+        disabledState: true,
+        comments: [],
+      })
+    );
     dispatch(ToggleModal(false));
     setText("");
     setImg(undefined);
   };
+
   return (
-    <div>
+    <div className="text-editor-wrapper" key={_id}>
       <div style={parentStyle}>
         <textarea
           ref={textAreaRef}
@@ -75,7 +144,13 @@ export const TextImageEdit = ({ prop }) => {
           onChange={(event) => onChangeHandler(event)}
         />
       </div>
-      {img && <img src={img} className="post-img" />}
+      {loader ? (
+        <Loader />
+      ) : img ? (
+        <img src={img} className="post-img" />
+      ) : (
+        <></>
+      )}
       {!disabledState && (
         <div className="flex-space-between flex-row">
           <label>
@@ -83,25 +158,80 @@ export const TextImageEdit = ({ prop }) => {
             <input
               type="file"
               ref={fileInput}
+              className="display-hidden"
               onChange={() => HandleImageSelected()}
             />
           </label>
           <button
             className="button-primary button-modal"
-            onClick={() => postHandler()}
+            onClick={() => (postState ? PostUpdate() : EditHandler())}
           >
-            Post
+            {postState ? "POST" : "SAVE"}
           </button>
         </div>
       )}
       {disabledState && (
-        <div className="flex-row">
-          <h1>
-            <AiOutlineHeart />{" "}
-          </h1>
-          <h1>
-            <BsBookmark />
-          </h1>
+        <div className="flex-col flex-center">
+          <div className="flex-row features-wrapper">
+            {likeCount > 0 ? (
+              <h1
+                onClick={() => dispatch(dislikePost(_id))}
+                className="text-center"
+              >
+                <AiFillHeart className="fill-heart" />
+                {`${likeCount}Likes`}
+              </h1>
+            ) : (
+              <h1 onClick={() => dispatch(likePost(_id))}>
+                <AiOutlineHeart /> {`${likeCount}Likes`}
+              </h1>
+            )}
+            <h1 onClick={() => setShowComment((state) => !state)}>
+              {" "}
+              <FaRegComment />{" "}
+            </h1>
+            {BookMarkHandler(_id) ? (
+              <h1 onClick={() => dispatch(removeBookMarkPost(_id))}>
+                <BsFillBookmarkFill />{" "}
+              </h1>
+            ) : (
+              <h1 onClick={() => dispatch(bookMarkPost(_id))}>
+                <BsBookmark />
+              </h1>
+            )}
+          </div>
+          {showComment && (
+            <div className="flex-col flex-center">
+              <Comment
+                prop={{
+                  disabledState: false,
+                  profilePic,
+                  textData: "",
+                  postId: _id,
+                }}
+              />
+              {comments.length > 0 ? (
+                comments.map((data) => {
+                  const { username, text, _id: key } = data;
+                  const { textData, disabledState } = text;
+                  return (
+                    <Comment
+                      prop={{
+                        disabledState,
+                        profilePic: getProfilePic(username),
+                        textData,
+                        postId: _id,
+                        commentId: key,
+                      }}
+                      key={key}
+                    />
+                  );
+                })
+              ) : (
+                <></>
+              )}
+            </div>
+          )}
         </div>
       )}
     </div>

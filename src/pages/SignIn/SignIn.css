@@ -49,3 +49,9 @@
   width: 15rem;
   margin: 0 5px;
 }
+.logo-login {
+  color: var(--color-primary-second);
+  font-family: "Lobster", cursive;
+  font-size: 4rem;
+  cursor: pointer;
+}
