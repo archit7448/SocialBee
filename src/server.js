@@ -100,7 +100,7 @@ export function makeServer({ environment = "development" } = {}) {
       this.post("/users/unfollow/:followUserId/",unfollowUserHandler.bind(this));
       /*Cloudinary*/
       this.passthrough();
-      this.passthrough("https://api.cloudinary.com/v1_1/dqlfw4xi2/image/upload",["post"]);
+      this.passthrough('/"https://api.cloudinary.com/v1_1/dqlfw4xi2/image/upload\"', ["post"]);
     },
   });
 }
