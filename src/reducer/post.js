@@ -99,20 +99,17 @@ export const bookMarkPost = createAsyncThunk(
 
 export const removeBookMarkPost = createAsyncThunk(
   "/api/users/remove-bookmark/:postId",
-  async (postId, postData, { rejectWithValue }) => {
+  async (postId, { rejectWithValue }) => {
     try {
       const response = await axios.post(
         `/api/users/remove-bookmark/${postId}`,
-        {
-          postData,
-        },
+        {},
         {
           headers: {
             authorization: token,
           },
         }
       );
-      console.log(response);
       return response.data;
     } catch (error) {
       console.log(error);
@@ -152,7 +149,6 @@ export const deletePost = createAsyncThunk(
           authorization: token,
         },
       });
-      console.log(response);
       return response.data;
     } catch (error) {
       console.log(error);

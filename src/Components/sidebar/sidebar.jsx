@@ -55,11 +55,9 @@ export const Sidebar = () => {
         <CgProfile />
         <div className="icon-name">PROFILE</div>
       </NavLink>
-      <div className="icon-wrapper flex-row">
+      <div className="icon-wrapper flex-row" onClick={() => LogOutHandler()}>
         <FiLogOut />
-        <div className="icon-name" onClick={() => LogOutHandler()}>
-          LOGOUT
-        </div>
+        <div className="icon-name">LOGOUT</div>
       </div>
       <div
         className="button-primary button-post flex-center"

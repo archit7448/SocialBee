@@ -4,8 +4,8 @@ import { ToggleModal } from "../../reducer/postSlice";
 
 export const Home = () => {
   const { posts, modal } = useSelector((store) => store.posts);
-  const { users, userData } = useSelector((store) => store.users);
-  const { dispatch } = useDispatch();
+  const { userData } = useSelector((store) => store.users);
+  const dispatch = useDispatch();
 
   const userFilter = () => {
     return userData !== null
@@ -18,7 +18,6 @@ export const Home = () => {
         )
       : [];
   };
-  console.log(userFilter());
   return (
     <main>
       <Sidebar />
