@@ -2,16 +2,19 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./SignIn.css";
 import axios from "axios";
+import { useDispatch } from "react-redux";
+import { updateUserData } from "../../reducer/userSlice";
 export const SignIn = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
+  const dispatch = useDispatch();
   const LoginHandler = async (params) => {
     try {
       const response = await axios.post("/api/auth/login", params);
       localStorage.setItem("token", response.data.encodedToken);
       localStorage.setItem("user", JSON.stringify(response.data.foundUser));
+      dispatch(updateUserData());
       navigate("/");
     } catch (error) {
       console.log(error);
