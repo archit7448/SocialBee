@@ -10,14 +10,6 @@ export const getUserData = createAsyncThunk("/api/users", async () => {
     return error;
   }
 });
-export const getUser = createAsyncThunk("/api/users/:userId", async () => {
-  try {
-    const response = await axios.get("/api/users");
-    return response.data;
-  } catch (error) {
-    return error;
-  }
-});
 
 export const followUser = createAsyncThunk(
   "/api/users/follow/:followUserId",
