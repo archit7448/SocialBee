@@ -15,6 +15,9 @@ const userSlice = createSlice({
     ToggleEdit: (state) => {
       state.EditState = !state.EditState;
     },
+    updateUserData: (state) => {
+      state.userData = JSON.parse(localStorage.getItem("user"));
+    },
   },
   extraReducers: {
     [getUserData.pending]: (state) => {
@@ -74,6 +77,6 @@ const userSlice = createSlice({
   },
 });
 
-export const { ToggleEdit } = userSlice.actions;
+export const { ToggleEdit, updateUserData } = userSlice.actions;
 
 export default userSlice.reducer;

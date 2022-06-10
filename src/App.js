@@ -15,11 +15,13 @@ import { useEffect } from "react";
 import { getUserData } from "./reducer/user";
 import { getPost } from "./reducer/post";
 import { useDispatch } from "react-redux";
+import { updateUserData } from "./reducer/userSlice";
 function App() {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getUserData());
     dispatch(getPost());
+    dispatch(updateUserData());
   }, []);
 
   return (

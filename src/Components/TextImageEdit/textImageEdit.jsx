@@ -80,19 +80,19 @@ export const TextImageEdit = ({ prop }) => {
   const HandleImageSelected = async () => {
     const data = new FormData();
     data.append("file", fileInput.current.files[0]);
-    data.append(
-      "upload_preset",
-      process.env.REACT_APP_CLOUDINARY_API_PRESET ?? ""
-    );
+    data.append("upload_preset", "cmr8t2pi");
 
     try {
       setLoader(true);
-      await fetch(process.env.REACT_APP_CLOUDINARY_API_URL ?? "", {
+      await fetch("https://api.cloudinary.com/v1_1/depmzczni/image/upload", {
         method: "POST",
         body: data,
       })
         .then((response) => response.json())
-        .then((json) => setImg(() => json.url));
+        .then((json) => setImg(() => json.url))
+        .catch((error) => {
+          console.log(error);
+        });
       setLoader(false);
     } catch (error) {
       console.log(error);
