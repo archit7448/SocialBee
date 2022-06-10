@@ -26,15 +26,13 @@ import {
   editUserHandler,
 } from "./backend/controllers/UserController";
 import {
-  followUserHandler,
-  getAllUsersHandler,
-  getUserHandler,
-  getBookmarkPostsHandler,
-  bookmarkPostHandler,
-  removePostFromBookmarkHandler,
-  unfollowUserHandler,
-  editUserHandler,
-} from "./backend/controllers/UserController";
+  getPostCommentsHandler,
+  addPostCommentHandler,
+  editPostCommentHandler,
+  deletePostCommentHandler,
+  upvotePostCommentHandler,
+  downvotePostCommentHandler,
+} from "./backend/controllers/CommentsController";
 export function makeServer({ environment = "development" } = {}) {
   return new Server({
     serializers: {
