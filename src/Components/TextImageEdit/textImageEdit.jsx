@@ -84,7 +84,7 @@ export const TextImageEdit = ({ prop }) => {
 
     try {
       setLoader(true);
-      await fetch("https://api.cloudinary.com/v1_1/depmzczni/image/upload", {
+      await fetch("https://api.cloudinary.com/v1_1/dqlfw4xi2/image/upload", {
         method: "POST",
         body: data,
       })
