@@ -37,20 +37,17 @@ export const SignUp = () => {
       notifySuccess("SignUp success");
     } catch (error) {
       console.log(error);
-      notifyError("Error")
+      notifyError("Error");
     }
   };
   const HandleImageSelected = async () => {
     const data = new FormData();
     data.append("file", fileInput.current.files[0]);
-    data.append(
-      "upload_preset",
-      process.env.REACT_APP_CLOUDINARY_API_PRESET ?? ""
-    );
+    data.append("upload_preset", "cmr8t2pi");
 
     try {
       setLoader(false);
-      await fetch(process.env.REACT_APP_CLOUDINARY_API_URL ?? "", {
+      await fetch("https://api.cloudinary.com/v1_1/dqlfw4xi2/image/upload", {
         method: "POST",
         body: data,
       })
