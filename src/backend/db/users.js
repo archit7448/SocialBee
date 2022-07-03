@@ -41,7 +41,7 @@ export const users = [
     createdAt: formatDate(),
     updatedAt: formatDate(),
     profilePic:
-      "https://res.cloudinary.com/dqlfw4xi2/image/upload/v1654086340/Harry_Potter_character_poster_sh0zk8.jpg",
+      "https://res.cloudinary.com/dqlfw4xi2/image/upload/v1656836200/Harry_Potter_character_poster_hwr4lw.jpg",
   },
   {
     _id: uuid(),
