@@ -137,7 +137,7 @@ export const posts = [
     createdAt: formatDate(),
     updatedAt: formatDate(),
     postImage:
-      "https://res.cloudinary.com/dqlfw4xi2/image/upload/v1654270137/qiqbom7x7shq4c9drown.jpg",
+      "https://res.cloudinary.com/dqlfw4xi2/image/upload/v1654083154/ad51644215b57ef0cfea49acab180dbff2da45b775f7e9c63d4cd3402c3ed867-e1555335664836_okumq3.jpg",
     comments: [],
   },
   {
