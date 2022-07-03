@@ -13,7 +13,7 @@ export const getUserData = createAsyncThunk("/api/users", async () => {
 
 export const followUser = createAsyncThunk(
   "/api/users/follow/:followUserId",
-  async (followUserId, { rejectWithValue }) => {
+  async ({ followUserId, token }, { rejectWithValue }) => {
     try {
       const response = await axios.post(
         `/api/users/follow/${followUserId}`,
@@ -33,7 +33,7 @@ export const followUser = createAsyncThunk(
 );
 export const unfollowUser = createAsyncThunk(
   "/api/users/unfollow/:followUserId",
-  async (followUserId, { rejectWithValue }) => {
+  async ({ followUserId, token }, { rejectWithValue }) => {
     try {
       const response = await axios.post(
         `/api/users/unfollow/${followUserId}`,
@@ -54,7 +54,7 @@ export const unfollowUser = createAsyncThunk(
 
 export const EditUser = createAsyncThunk(
   "/api/users/edit",
-  async (userData, { rejectWithValue }) => {
+  async ({ userData, token }, { rejectWithValue }) => {
     try {
       const response = await axios.post(
         `/api/users/edit`,

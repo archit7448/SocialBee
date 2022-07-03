@@ -1,5 +1,5 @@
 import { useRef, useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   addCommentToDatabase,
   deleteCommentToDatabase,
@@ -15,6 +15,7 @@ export const Comment = ({ prop }) => {
   const [textAreaHeight, setTextAreaHeight] = useState("auto");
   const [parentHeight, setParentHeight] = useState("auto");
   const [showEdit, setShowEdit] = useState(false);
+  const { token } = useSelector((store) => store.users);
   const user = JSON.parse(localStorage.getItem("user"));
   const parentStyle = {
     minHeight: parentHeight,
@@ -25,8 +26,8 @@ export const Comment = ({ prop }) => {
   };
 
   useEffect(() => {
-    setParentHeight(`${textAreaRef.current?.scrollHeight}px`);
-    setTextAreaHeight(`${textAreaRef.current?.scrollHeight}px`);
+    setParentHeight(`${textAreaRef.current?.scrollHeight+5}px`);
+    setTextAreaHeight(`${textAreaRef.current?.scrollHeight+5}px`);
   }, [text]);
 
   const onChangeHandler = (event) => {
@@ -40,6 +41,7 @@ export const Comment = ({ prop }) => {
       addCommentToDatabase({
         commentData: { textData: text, disabledState: true },
         postId,
+        token,
       })
     );
     setText("");
@@ -52,6 +54,7 @@ export const Comment = ({ prop }) => {
         commentData: { textData: text, disabledState: false },
         postId,
         commentId,
+        token,
       })
     );
     setShowEdit((state) => !state);
@@ -62,6 +65,7 @@ export const Comment = ({ prop }) => {
         commentData: { textData: text, disabledState: true },
         postId,
         commentId,
+        token,
       })
     );
   };
@@ -97,7 +101,9 @@ export const Comment = ({ prop }) => {
               <h2
                 className="cursor"
                 onClick={() =>
-                  dispatch(deleteCommentToDatabase({ commentId, postId }))
+                  dispatch(
+                    deleteCommentToDatabase({ commentId, postId, token })
+                  )
                 }
               >
                 DELETE

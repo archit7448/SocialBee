@@ -5,6 +5,7 @@ const initialState = {
   users: [],
   status: "idle",
   EditState: true,
+  token: localStorage.getItem("token"),
   userData: JSON.parse(localStorage.getItem("user")),
 };
 
@@ -17,6 +18,12 @@ const userSlice = createSlice({
     },
     updateUserData: (state) => {
       state.userData = JSON.parse(localStorage.getItem("user"));
+    },
+    updateToken: (state) => {
+      state.token = localStorage.getItem("token");
+    },
+    updateUsersData: (state) => {
+      state.users = [...state.users, JSON.parse(localStorage.getItem("user"))];
     },
   },
   extraReducers: {
@@ -69,6 +76,11 @@ const userSlice = createSlice({
     [EditUser.fulfilled]: (state, action) => {
       state.status = "fullfilled";
       state.userData = action.payload.user;
+      state.users = state.users.map((data) =>
+        action.payload.user.username === data.username
+          ? action.payload.user
+          : data
+      );
     },
     [EditUser.rejected]: (state, action) => {
       state.status = "rejected";
@@ -77,6 +89,7 @@ const userSlice = createSlice({
   },
 });
 
-export const { ToggleEdit, updateUserData } = userSlice.actions;
+export const { ToggleEdit, updateUserData, updateToken, updateUsersData } =
+  userSlice.actions;
 
 export default userSlice.reducer;

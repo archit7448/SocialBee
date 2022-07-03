@@ -15,7 +15,7 @@ export const getPost = createAsyncThunk("/api/posts", async () => {
 
 export const addPostToDataBase = createAsyncThunk(
   "/api/posts",
-  async (postData, { rejectWithValue }) => {
+  async ({ postData, token }, { rejectWithValue }) => {
     try {
       const response = await axios.post(
         "/api/posts",
@@ -26,7 +26,6 @@ export const addPostToDataBase = createAsyncThunk(
           },
         }
       );
-      console.log(response);
       return response.data;
     } catch (error) {
       return rejectWithValue(error);
@@ -36,7 +35,7 @@ export const addPostToDataBase = createAsyncThunk(
 
 export const likePost = createAsyncThunk(
   "/api/posts/like/:postId",
-  async (postId, { rejectWithValue }) => {
+  async ({ postId, token }, { rejectWithValue }) => {
     try {
       const response = await axios.post(
         `/api/posts/like/${postId}`,
@@ -57,7 +56,7 @@ export const likePost = createAsyncThunk(
 
 export const dislikePost = createAsyncThunk(
   "/api/posts/ dislike/:postId",
-  async (postId, { rejectWithValue }) => {
+  async ({ postId, token }, { rejectWithValue }) => {
     try {
       const response = await axios.post(
         `/api/posts/dislike/${postId}`,
@@ -78,7 +77,7 @@ export const dislikePost = createAsyncThunk(
 
 export const bookMarkPost = createAsyncThunk(
   "/api/users/bookmark/:postId",
-  async (postId, { rejectWithValue }) => {
+  async ({ postId, token }, { rejectWithValue }) => {
     try {
       const response = await axios.post(
         `/api/users/bookmark/${postId}`,
@@ -99,7 +98,7 @@ export const bookMarkPost = createAsyncThunk(
 
 export const removeBookMarkPost = createAsyncThunk(
   "/api/users/remove-bookmark/:postId",
-  async (postId, { rejectWithValue }) => {
+  async ({ postId, token }, { rejectWithValue }) => {
     try {
       const response = await axios.post(
         `/api/users/remove-bookmark/${postId}`,
@@ -121,7 +120,7 @@ export const removeBookMarkPost = createAsyncThunk(
 export const editPost = createAsyncThunk(
   "/api/posts/edit/:postId",
   async (data, { rejectWithValue }) => {
-    const { postData, postId } = data;
+    const { postData, postId, token } = data;
     try {
       const response = await axios.post(
         `/api/posts/edit/${postId}`,
@@ -142,7 +141,7 @@ export const editPost = createAsyncThunk(
 
 export const deletePost = createAsyncThunk(
   "/api/posts/:postId",
-  async (postId, { rejectWithValue }) => {
+  async ({ postId, token }, { rejectWithValue }) => {
     try {
       const response = await axios.delete(`/api/posts/${postId}`, {
         headers: {

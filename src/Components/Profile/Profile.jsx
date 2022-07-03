@@ -7,7 +7,7 @@ import { Loader } from "../../Utility/Loader/loader";
 import { EditUser, followUser, unfollowUser } from "../../reducer/user";
 export const Profile = ({ prop }) => {
   const { EditState } = useSelector((store) => store.users);
-  const { userData, users } = useSelector((store) => store.users);
+  const { userData, users, token } = useSelector((store) => store.users);
   const [loader, setLoader] = useState(true);
   const fileInput = useRef();
   const dispatch = useDispatch();
@@ -102,8 +102,12 @@ export const Profile = ({ prop }) => {
             onClick={() =>
               EditState
                 ? dispatch(ToggleEdit())
-                : dispatch(EditUser({ bio: input, profilePic: profile })) &&
-                  dispatch(ToggleEdit())
+                : dispatch(
+                    EditUser({
+                      userData: { bio: input, profilePic: profile },
+                      token,
+                    })
+                  ) && dispatch(ToggleEdit())
             }
           >
             {EditState ? "EDIT" : "SAVE"}
@@ -113,8 +117,12 @@ export const Profile = ({ prop }) => {
             className="button button-primary button-profile-follow"
             onClick={() =>
               userFollowUnfollow(username)
-                ? dispatch(unfollowUser(userId(username)))
-                : dispatch(followUser(userId(username)))
+                ? dispatch(
+                    unfollowUser({ followUserId: userId(username), token })
+                  )
+                : dispatch(
+                    followUser({ followUserId: userId(username), token })
+                  )
             }
           >
             {userFollowUnfollow(username) ? "Unfollow" : "Follow"}

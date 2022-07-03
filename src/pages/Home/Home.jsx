@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { FollowSidebar, Modal, Post, Sidebar } from "../../Components";
 import { ToggleModal } from "../../reducer/postSlice";
-
+import logo from "../../assets/logo.svg";
 export const Home = () => {
   const { posts, modal } = useSelector((store) => store.posts);
   const { userData } = useSelector((store) => store.users);
@@ -23,7 +23,10 @@ export const Home = () => {
       <Sidebar />
       {modal && <Modal />}
       <div className="post-wrapper-div flex-center flex-col">
-        <div className="logo-app logo-show">SocialGram</div>
+        <div className="logo-app logo-show">
+          SocialGram
+          <img src={logo} alt="logo" className="logo-size"></img>
+        </div>
         <div
           className="post-header"
           onClick={() => dispatch(ToggleModal(true))}

@@ -43,7 +43,9 @@
   padding: 5px 1rem;
   border-radius: 2rem;
 }
-
+.logo-size{
+  height: 5rem;
+}
 @media screen and (max-width: 720px) {
   .sidebar {
     display: flex;

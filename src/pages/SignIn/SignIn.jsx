@@ -3,7 +3,9 @@ import { useNavigate } from "react-router-dom";
 import "./SignIn.css";
 import axios from "axios";
 import { useDispatch } from "react-redux";
-import { updateUserData } from "../../reducer/userSlice";
+import { updateToken, updateUserData } from "../../reducer/userSlice";
+import logo from "../../assets/logo.svg";
+import { notifyError, notifySuccess } from "../../Utility/Notification/toast";
 export const SignIn = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
@@ -15,9 +17,12 @@ export const SignIn = () => {
       localStorage.setItem("token", response.data.encodedToken);
       localStorage.setItem("user", JSON.stringify(response.data.foundUser));
       dispatch(updateUserData());
+      dispatch(updateToken());
       navigate("/");
+      notifySuccess("Login success");
     } catch (error) {
       console.log(error);
+      notifyError("Error");
     }
   };
   const setGuestCredentials = () => {
@@ -28,12 +33,15 @@ export const SignIn = () => {
   return (
     <main className="flex-center">
       <div className="login-container">
-        <div className="logo-login">Welcome to SocialGram</div>
-        <h3 className="login-small-heading">Email</h3>
+        <div className="logo-login">
+          Welcome to SocialBee{" "}
+          <img src={logo} alt="logo" className="logo-size"></img>
+        </div>
+        <h3 className="login-small-heading">Username</h3>
         <input
           type="text"
           value={email}
-          placeholder="Enter Email"
+          placeholder="Enter Username"
           onChange={(event) => setEmail(event.target.value)}
         />
         <h3 className="login-small-heading">Password</h3>

@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { followUser } from "../../reducer/user";
 import "./FollowSidebar.css";
 export const FollowSidebar = () => {
-  const { users, userData } = useSelector((store) => store.users);
+  const { users, userData, token } = useSelector((store) => store.users);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const userFilter = () => {
@@ -40,7 +40,9 @@ export const FollowSidebar = () => {
                 </div>
                 <button
                   className="button-primary button-follow-sidebar"
-                  onClick={() => dispatch(followUser(_id))}
+                  onClick={() =>
+                    dispatch(followUser({ followUserId: _id, token }))
+                  }
                 >
                   Follow
                 </button>
