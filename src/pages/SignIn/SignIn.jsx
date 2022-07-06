@@ -11,6 +11,14 @@ export const SignIn = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
+
+const errorHandler = () => {
+  notifyError("ERROR")
+   setEmail("")
+   setPassword("")
+}
+
+
   const LoginHandler = async (params) => {
     try {
       const response = await axios.post("/api/auth/login", params);
@@ -22,9 +30,10 @@ export const SignIn = () => {
       notifySuccess("Login success");
     } catch (error) {
       console.log(error);
-      notifyError("Error");
+      errorHandler()
     }
   };
+
   const setGuestCredentials = () => {
     setEmail("Archit_");
     setPassword("architSingh123");
@@ -34,7 +43,7 @@ export const SignIn = () => {
     <main className="flex-center">
       <div className="login-container">
         <div className="logo-login">
-          Welcome to SocialBee{" "}
+          LogIn SocialBee{" "}
           <img src={logo} alt="logo" className="logo-size"></img>
         </div>
         <h3 className="login-small-heading">Username</h3>

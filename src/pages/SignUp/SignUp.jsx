@@ -24,22 +24,40 @@ export const SignUp = () => {
   const [profile, setProfile] = useState(
     "https://res.cloudinary.com/dqlfw4xi2/image/upload/v1656762303/logo_dvx9py.svg"
   );
+
   const SignUpHandler = async (params) => {
     try {
       const response = await axios.post("/api/auth/signup", params);
       localStorage.setItem("token", response.data.encodedToken);
       localStorage.setItem("user", JSON.stringify(response.data.createdUser));
-      console.log(response.data);
       dispatch(updateUserData());
       dispatch(updateToken());
       dispatch(updateUsersData());
       navigate("/");
       notifySuccess("SignUp success");
     } catch (error) {
-      console.log(error);
-      notifyError("Error");
+      notifyError("Name already taken");
     }
   };
+  const verifyHandler = () => {
+    if (password.length < 8) {
+      notifyError("Password length should be 8");
+    } else if (firstName.length < 1) {
+      notifyError("Name is short ");
+    } else if (lastName.length < 1) {
+      notifyError("Name is short");
+    } else {
+      SignUpHandler({
+        firstName: firstName,
+        lastName: lastName,
+        username: username,
+        password: password,
+        profilePic: profile,
+        bio: "",
+      });
+    }
+  };
+
   const HandleImageSelected = async () => {
     const data = new FormData();
     data.append("file", fileInput.current.files[0]);
@@ -62,7 +80,7 @@ export const SignUp = () => {
     <main className="flex-center">
       <div className="login-container">
         <div className="logo-login">
-          Welcome to SocialBee
+          SignUp SocialBee
           <img src={logo} alt="logo" className="logo-size"></img>
         </div>
         <div>
@@ -114,16 +132,7 @@ export const SignUp = () => {
         />
         <button
           className="button-primary button-login"
-          onClick={() =>
-            SignUpHandler({
-              firstName: firstName,
-              lastName: lastName,
-              username: username,
-              password: password,
-              profilePic: profile,
-              bio: "",
-            })
-          }
+          onClick={() => verifyHandler()}
         >
           SignUp
         </button>
