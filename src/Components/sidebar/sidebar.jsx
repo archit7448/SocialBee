@@ -10,6 +10,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { ToggleModal } from "../../reducer/postSlice";
 import logo from "../../assets/logo.svg";
+import { notifySuccess } from "../../Utility/Notification/toast";
 export const Sidebar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -18,6 +19,7 @@ export const Sidebar = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
     navigate("/login");
+    notifySuccess("LogOut Sucessfully");
   };
   return (
     <div className="sidebar">
