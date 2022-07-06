@@ -1,8 +1,10 @@
 import { useSelector } from "react-redux";
 import { FollowSidebar, Sidebar, Post } from "../../Components";
 import logo from "../../assets/logo.svg";
+import { reverseArrayFunc } from "../../Utility/reverseArray/reverseArray";
 export const Bookmark = () => {
   const { bookMark } = useSelector((store) => store.posts);
+  let reverseArray = reverseArrayFunc(bookMark);
   return (
     <main>
       <Sidebar />
@@ -11,8 +13,8 @@ export const Bookmark = () => {
           SocialBee
           <img src={logo} alt="logo" className="logo-size"></img>
         </div>
-        {bookMark.length > 0 ? (
-          bookMark.map((data) => {
+        {reverseArray.length > 0 ? (
+          reverseArray.map((data) => {
             return (
               <Post prop={{ data, bookMarkState: false }} key={data._id} />
             );
