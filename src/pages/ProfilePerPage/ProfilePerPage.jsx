@@ -2,6 +2,7 @@ import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { FollowSidebar, Sidebar, Profile, Post } from "../../Components";
 import { Loader } from "../../Utility/Loader/loader";
+import logo from "../../assets/logo.svg";
 
 export const ProfilePerPage = () => {
   const { profileId } = useParams();
@@ -13,7 +14,10 @@ export const ProfilePerPage = () => {
     <main>
       <Sidebar />
       <div className="flex-center flex-col width-100 post-wrapper-div">
-        <div className="logo-app logo-show">SocialGram</div>
+        <div className="logo-app logo-show">
+          SocialBee
+          <img src={logo} alt="logo" className="logo-size"></img>
+        </div>
         {postData.length > 0 ? (
           <div>
             <Profile prop={{ userProp, postData, profilePerPage: true }} />

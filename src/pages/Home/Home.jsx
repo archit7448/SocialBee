@@ -24,7 +24,7 @@ export const Home = () => {
       {modal && <Modal />}
       <div className="post-wrapper-div flex-center flex-col">
         <div className="logo-app logo-show">
-          SocialGram
+          SocialBee
           <img src={logo} alt="logo" className="logo-size"></img>
         </div>
         <div

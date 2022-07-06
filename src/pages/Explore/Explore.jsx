@@ -11,7 +11,7 @@ export const Explore = () => {
       {modal && <Modal />}
       <Sidebar />
       <div className="post-wrapper-div flex-center flex-col">
-        <div className="logo-app logo-show">SocialGram
+        <div className="logo-app logo-show">SocialBee
         <img src={logo} alt="logo" className="logo-size"></img>
         </div>
         <div

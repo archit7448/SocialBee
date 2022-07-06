@@ -10,7 +10,7 @@ export const ProfilePage = () => {
       <Sidebar />
       <div className="flex-center flex-col post-wrapper-div">
         <div className="logo-app logo-show">
-          SocialGram
+          SocialBee
           <img src={logo} alt="logo" className="logo-size"></img>
         </div>
         <Profile prop={{ userProp: userData, postData }} />
