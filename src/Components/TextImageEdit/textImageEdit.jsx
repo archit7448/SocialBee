@@ -21,6 +21,7 @@ import "./textImageEdit.css";
 import { Comment } from "../Comment/comment";
 import { Loader } from "../../Utility/Loader/loader";
 import { useLocation } from "react-router-dom";
+import { notifySuccess } from "../../Utility/Notification/toast";
 export const TextImageEdit = ({ prop }) => {
   const { bookMark } = useSelector((store) => store.posts);
   const {
@@ -138,6 +139,7 @@ export const TextImageEdit = ({ prop }) => {
     dispatch(ToggleModal(false));
     setText("");
     setImg(undefined);
+    notifySuccess("POST ADDED");
   };
 
   return (
@@ -196,7 +198,7 @@ export const TextImageEdit = ({ prop }) => {
                 <h1 onClick={() => dispatch(likePost({ postId: _id, token }))}>
                   <AiOutlineHeart /> {`${likeCount}Likes`}
                 </h1>
-              )) }
+              ))}
             {location.pathname !== "/bookmark" && (
               <h1 onClick={() => setShowComment((state) => !state)}>
                 {" "}
