@@ -18,7 +18,7 @@ import { getUserData } from "./reducer/user";
 import { getPost } from "./reducer/post";
 import { useDispatch } from "react-redux";
 import { updateToken } from "./reducer/userSlice";
-function App() {
+function App() { 
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getUserData());
