@@ -1,22 +1,21 @@
 import { useDispatch, useSelector } from "react-redux";
 import "./post.css";
 import { TextImageEdit } from "../TextImageEdit/textImageEdit";
-import { BiDotsVerticalRounded } from "react-icons/bi";
 import { useState } from "react";
-import { ToggleDisable } from "../../reducer/postSlice";
-import { AiOutlineClose } from "react-icons/ai";
+import { toggleDisable } from "../../reducer/postSlice";
+import { AiOutlineClose, BiDotsVerticalRounded } from "../indexIcon";
 import { deletePost } from "../../reducer/post";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 export const Post = ({ prop }) => {
-  const { data } = prop;
+  const { data, bookMarkState } = prop;
   const dispatch = useDispatch();
-  const { users, userData } = useSelector((store) => store.users);
+  const { users, userData, token } = useSelector((store) => store.users);
   const [showEdit, setShowEdit] = useState(false);
   const navigate = useNavigate();
   const checkUser = (username) => {
     return userData !== null && userData.username == username ? true : false;
   };
-
+  const location = useLocation();
   const FindUser = (usernameFind) => {
     const find = users.find(({ username }) => username === usernameFind);
     return find;
@@ -28,10 +27,10 @@ export const Post = ({ prop }) => {
   const { likeCount } = likes;
   const EditHandler = () => {
     setShowEdit((state) => !state);
-    dispatch(ToggleDisable(_id));
+    dispatch(toggleDisable(_id));
   };
   const CloseHanlder = () => {
-    dispatch(ToggleDisable(_id));
+    dispatch(toggleDisable(_id));
   };
 
   const ProfilePerPageHandler = () => {
@@ -52,32 +51,37 @@ export const Post = ({ prop }) => {
             <h3>{`@${username}`}</h3>
           </div>
         </div>
-        <div className="position-realtive">
-          {checkUser(username) && disabledState ? (
-            <BiDotsVerticalRounded
-              className="text-md cursor"
-              onClick={() => setShowEdit((state) => !state)}
-            />
-          ) : disabledState ? (
-            <></>
-          ) : (
-            <AiOutlineClose
-              className="text-md cursor"
-              onClick={() => CloseHanlder()}
-            />
-          )}
-          {showEdit && (
-            <div className="edit-wrapper">
-              <h2 className="cursor" onClick={() => dispatch(deletePost(_id))}>
-                DELETE
-              </h2>
-              <hr />
-              <h2 className="cursor" onClick={() => EditHandler()}>
-                EDIT
-              </h2>
-            </div>
-          )}
-        </div>
+        {location.pathname !== "/bookmark" && (
+          <div className="position-realtive">
+            {checkUser(username) && disabledState ? (
+              <BiDotsVerticalRounded
+                className="text-md cursor"
+                onClick={() => setShowEdit((state) => !state)}
+              />
+            ) : disabledState ? (
+              <></>
+            ) : (
+              <AiOutlineClose
+                className="text-md cursor"
+                onClick={() => CloseHanlder()}
+              />
+            )}
+            {showEdit && (
+              <div className="edit-wrapper">
+                <h2
+                  className="cursor"
+                  onClick={() => dispatch(deletePost({ postId: _id, token }))}
+                >
+                  DELETE
+                </h2>
+                <hr />
+                <h2 className="cursor" onClick={() => EditHandler()}>
+                  EDIT
+                </h2>
+              </div>
+            )}
+          </div>
+        )}
       </div>
       <TextImageEdit
         prop={{
@@ -87,6 +91,7 @@ export const Post = ({ prop }) => {
           _id,
           likeCount,
           comments,
+          bookMarkState,
         }}
       />
     </div>

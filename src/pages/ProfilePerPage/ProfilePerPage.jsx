@@ -2,6 +2,8 @@ import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { FollowSidebar, Sidebar, Profile, Post } from "../../Components";
 import { Loader } from "../../Utility/Loader/loader";
+import logo from "../../assets/logo.svg";
+import { reverseArrayFunc } from "../../Utility/reverseArray/reverseArray";
 
 export const ProfilePerPage = () => {
   const { profileId } = useParams();
@@ -9,16 +11,20 @@ export const ProfilePerPage = () => {
   const userProp = users.find(({ username }) => username === profileId);
   const { posts } = useSelector((store) => store.posts);
   let postData = posts.filter((data) => data.username === userProp.username);
+  let reverseArray = reverseArrayFunc(postData);
   return (
     <main>
       <Sidebar />
       <div className="flex-center flex-col width-100 post-wrapper-div">
-        <div className="logo-app logo-show">SocialGram</div>
-        {postData.length > 0 ? (
+        <div className="logo-app logo-show">
+          SocialBee
+          <img src={logo} alt="logo" className="logo-size"></img>
+        </div>
+        {reverseArray.length > 0 ? (
           <div>
             <Profile prop={{ userProp, postData, profilePerPage: true }} />
-            {postData.length > 0 ? (
-              postData.map((data) => {
+            {reverseArray.length > 0 ? (
+              reverseArray.map((data) => {
                 return <Post prop={{ data }} key={data._id} />;
               })
             ) : (

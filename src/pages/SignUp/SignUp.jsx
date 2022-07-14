@@ -1,6 +1,16 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import logo from "../../assets/logo.svg";
+import { Loader } from "../../Utility/Loader/loader";
+import { AiFillCamera } from "react-icons/ai";
+import { useDispatch } from "react-redux";
+import {
+  updateToken,
+  updateUserData,
+  updateUsersData,
+} from "../../reducer/userSlice";
+import { notifyError, notifySuccess } from "../../Utility/Notification/toast";
 
 export const SignUp = () => {
   const navigate = useNavigate();
@@ -8,21 +18,89 @@ export const SignUp = () => {
   const [password, setPassword] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
+  const [loader, setLoader] = useState(true);
+  const fileInput = useRef();
+  const dispatch = useDispatch();
+  const [profile, setProfile] = useState(
+    "https://res.cloudinary.com/dqlfw4xi2/image/upload/v1656762303/logo_dvx9py.svg"
+  );
 
   const SignUpHandler = async (params) => {
     try {
       const response = await axios.post("/api/auth/signup", params);
       localStorage.setItem("token", response.data.encodedToken);
+      localStorage.setItem("user", JSON.stringify(response.data.createdUser));
+      dispatch(updateUserData());
+      dispatch(updateToken());
+      dispatch(updateUsersData());
       navigate("/");
+      notifySuccess("SignUp success");
+    } catch (error) {
+      notifyError("Name already taken");
+    }
+  };
+  const verifyHandler = () => {
+    if (password.length < 8) {
+      notifyError("Password length should be 8");
+    } else if (firstName.length < 1) {
+      notifyError("Name is short ");
+    } else if (lastName.length < 1) {
+      notifyError("Name is short");
+    } else {
+      SignUpHandler({
+        firstName: firstName,
+        lastName: lastName,
+        username: username,
+        password: password,
+        profilePic: profile,
+        bio: "",
+      });
+    }
+  };
+
+  const HandleImageSelected = async () => {
+    const data = new FormData();
+    data.append("file", fileInput.current.files[0]);
+    data.append("upload_preset", "cmr8t2pi");
+
+    try {
+      setLoader(false);
+      await fetch("https://api.cloudinary.com/v1_1/dqlfw4xi2/image/upload", {
+        method: "POST",
+        body: data,
+      })
+        .then((response) => response.json())
+        .then((json) => setProfile(() => json.url));
+      setLoader(true);
     } catch (error) {
       console.log(error);
     }
   };
-
   return (
     <main className="flex-center">
       <div className="login-container">
-        <div className="logo-app">Welcome to SocialGram</div>
+        <div className="logo-login">
+          SignUp SocialBee
+          <img src={logo} alt="logo" className="logo-size"></img>
+        </div>
+        <div>
+          <div className="flex-row">
+            {loader ? (
+              <img src={profile} className="profile-img border-1px" />
+            ) : (
+              <Loader />
+            )}
+            <label>
+              <AiFillCamera className="image-tag" />
+              <input
+                type="file"
+                ref={fileInput}
+                className="display-hidden"
+                onChange={() => HandleImageSelected()}
+              />
+            </label>
+          </div>
+        </div>
         <h3 className="login-small-heading">Name Details</h3>
         <div className="name-details-container">
           <input
@@ -38,7 +116,7 @@ export const SignUp = () => {
             onChange={(event) => setLastName(event.target.value)}
           />
         </div>
-        <h3 className="login-small-heading">Email</h3>
+        <h3 className="login-small-heading">Username</h3>
         <input
           type="text"
           value={username}
@@ -54,14 +132,7 @@ export const SignUp = () => {
         />
         <button
           className="button-primary button-login"
-          onClick={() =>
-            SignUpHandler({
-              firstName: firstName,
-              lastName: lastName,
-              username: username,
-              password: password,
-            })
-          }
+          onClick={() => verifyHandler()}
         >
           SignUp
         </button>

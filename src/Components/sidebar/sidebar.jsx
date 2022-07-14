@@ -1,12 +1,16 @@
-import { AiFillHome } from "react-icons/ai";
-import { MdExplore } from "react-icons/md";
-import { BsFillBookmarkFill } from "react-icons/bs";
-import { CgProfile } from "react-icons/cg";
-import { FiLogOut } from "react-icons/fi";
+import {
+  AiFillHome,
+  MdExplore,
+  BsFillBookmarkFill,
+  CgProfile,
+  FiLogOut,
+} from "../indexIcon";
 import "./sidebar.css";
 import { NavLink, useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { ToggleModal } from "../../reducer/postSlice";
+import { useDispatch } from "react-redux";
+import { toggleModal } from "../../reducer/postSlice";
+import logo from "../../assets/logo.svg";
+import { notifySuccess } from "../../Utility/Notification/toast";
 export const Sidebar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -15,10 +19,14 @@ export const Sidebar = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
     navigate("/login");
+    notifySuccess("LogOut Sucessfully");
   };
   return (
     <div className="sidebar">
-      <div className="logo-app">SocialGram</div>
+      <div className="logo-app flex-row">
+        SocialBee
+        <img src={logo} alt="logo" className="logo-size"></img>
+      </div>
       <NavLink
         className={({ isActive }) =>
           isActive ? "icon-wrapper-active flex-row" : "icon-wrapper flex-row"
@@ -61,7 +69,7 @@ export const Sidebar = () => {
       </div>
       <div
         className="button-primary button-post flex-center"
-        onClick={() => dispatch(ToggleModal(true))}
+        onClick={() => dispatch(toggleModal(true))}
       >
         Post
       </div>

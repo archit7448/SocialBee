@@ -2,12 +2,12 @@ import { useState, useRef, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import "./Profile.css";
 import { AiFillCamera } from "react-icons/ai";
-import { ToggleEdit } from "../../reducer/userSlice";
+import { toggleEdit } from "../../reducer/userSlice";
 import { Loader } from "../../Utility/Loader/loader";
 import { EditUser, followUser, unfollowUser } from "../../reducer/user";
 export const Profile = ({ prop }) => {
   const { EditState } = useSelector((store) => store.users);
-  const { userData, users } = useSelector((store) => store.users);
+  const { userData, users, token } = useSelector((store) => store.users);
   const [loader, setLoader] = useState(true);
   const fileInput = useRef();
   const dispatch = useDispatch();
@@ -42,14 +42,11 @@ export const Profile = ({ prop }) => {
   const HandleImageSelected = async () => {
     const data = new FormData();
     data.append("file", fileInput.current.files[0]);
-    data.append(
-      "upload_preset",
-      process.env.REACT_APP_CLOUDINARY_API_PRESET ?? ""
-    );
+    data.append("upload_preset", "cmr8t2pi");
 
     try {
       setLoader(false);
-      await fetch(process.env.REACT_APP_CLOUDINARY_API_URL ?? "", {
+      await fetch("https://api.cloudinary.com/v1_1/dqlfw4xi2/image/upload", {
         method: "POST",
         body: data,
       })
@@ -101,9 +98,13 @@ export const Profile = ({ prop }) => {
             className="button-secondary button-edit-profile"
             onClick={() =>
               EditState
-                ? dispatch(ToggleEdit())
-                : dispatch(EditUser({ bio: input, profilePic: profile })) &&
-                  dispatch(ToggleEdit())
+                ? dispatch(toggleEdit())
+                : dispatch(
+                    EditUser({
+                      userData: { bio: input, profilePic: profile },
+                      token,
+                    })
+                  ) && dispatch(toggleEdit())
             }
           >
             {EditState ? "EDIT" : "SAVE"}
@@ -113,8 +114,12 @@ export const Profile = ({ prop }) => {
             className="button button-primary button-profile-follow"
             onClick={() =>
               userFollowUnfollow(username)
-                ? dispatch(unfollowUser(userId(username)))
-                : dispatch(followUser(userId(username)))
+                ? dispatch(
+                    unfollowUser({ followUserId: userId(username), token })
+                  )
+                : dispatch(
+                    followUser({ followUserId: userId(username), token })
+                  )
             }
           >
             {userFollowUnfollow(username) ? "Unfollow" : "Follow"}

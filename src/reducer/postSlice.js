@@ -26,10 +26,10 @@ const postSlice = createSlice({
   name: "posts",
   initialState,
   reducers: {
-    ToggleModal: (state, action) => {
+    toggleModal: (state, action) => {
       state.modal = action.payload;
     },
-    ToggleDisable: (state, action) => {
+    toggleDisable: (state, action) => {
       state.posts = state.posts.map((postsData) =>
         postsData._id === action.payload
           ? { ...postsData, disabledState: !postsData.disabledState }
@@ -151,7 +151,7 @@ const postSlice = createSlice({
   },
 });
 
-export const { AddPost, ToggleModal, ToggleDisable, ToggleComment } =
+export const { AddPost, toggleModal, toggleDisable, ToggleComment } =
   postSlice.actions;
 
 export default postSlice.reducer;

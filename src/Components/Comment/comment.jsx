@@ -1,5 +1,5 @@
 import { useRef, useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   addCommentToDatabase,
   deleteCommentToDatabase,
@@ -15,6 +15,7 @@ export const Comment = ({ prop }) => {
   const [textAreaHeight, setTextAreaHeight] = useState("auto");
   const [parentHeight, setParentHeight] = useState("auto");
   const [showEdit, setShowEdit] = useState(false);
+  const { token } = useSelector((store) => store.users);
   const user = JSON.parse(localStorage.getItem("user"));
   const parentStyle = {
     minHeight: parentHeight,
@@ -25,8 +26,8 @@ export const Comment = ({ prop }) => {
   };
 
   useEffect(() => {
-    setParentHeight(`${textAreaRef.current?.scrollHeight}px`);
-    setTextAreaHeight(`${textAreaRef.current?.scrollHeight}px`);
+    setParentHeight(`${textAreaRef.current?.scrollHeight+5}px`);
+    setTextAreaHeight(`${textAreaRef.current?.scrollHeight+5}px`);
   }, [text]);
 
   const onChangeHandler = (event) => {
@@ -40,28 +41,31 @@ export const Comment = ({ prop }) => {
       addCommentToDatabase({
         commentData: { textData: text, disabledState: true },
         postId,
+        token,
       })
     );
     setText("");
     setParentHeight("auto");
     setTextAreaHeight("auto");
   };
-  const EditHandler = () => {
+  const editHandler = () => {
     dispatch(
       editCommentToDatabase({
         commentData: { textData: text, disabledState: false },
         postId,
         commentId,
+        token,
       })
     );
     setShowEdit((state) => !state);
   };
-  const EditComment = () => {
+  const editComment = () => {
     dispatch(
       editCommentToDatabase({
         commentData: { textData: text, disabledState: true },
         postId,
         commentId,
+        token,
       })
     );
   };
@@ -85,7 +89,7 @@ export const Comment = ({ prop }) => {
       ) : (
         <button
           className="comment-button"
-          onClick={() => (commentId ? EditComment() : addComment())}
+          onClick={() => (commentId ? editComment() : addComment())}
         >
           {commentId ? "SAVE" : "POST"}
         </button>
@@ -97,13 +101,15 @@ export const Comment = ({ prop }) => {
               <h2
                 className="cursor"
                 onClick={() =>
-                  dispatch(deleteCommentToDatabase({ commentId, postId }))
+                  dispatch(
+                    deleteCommentToDatabase({ commentId, postId, token })
+                  )
                 }
               >
                 DELETE
               </h2>
               <hr />
-              <h2 className="cursor" onClick={() => EditHandler()}>
+              <h2 className="cursor" onClick={() => editHandler()}>
                 EDIT
               </h2>
             </div>

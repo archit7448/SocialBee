@@ -1,7 +1,6 @@
 import { useRef, useState, useEffect } from "react";
-import { ImImages } from "react-icons/im";
 import { useDispatch, useSelector } from "react-redux";
-import { ToggleModal } from "../../reducer/postSlice";
+import { toggleModal } from "../../reducer/postSlice";
 import {
   addPostToDataBase,
   bookMarkPost,
@@ -10,13 +9,19 @@ import {
   likePost,
   removeBookMarkPost,
 } from "../../reducer/post";
-import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
-import { BsBookmark, BsFillBookmarkFill } from "react-icons/bs";
-import { FaRegComment } from "react-icons/fa";
+import {
+  AiFillHeart,
+  AiOutlineHeart,
+  BsBookmark,
+  BsFillBookmarkFill,
+  FaRegComment,
+  ImImages,
+} from "../indexIcon";
 import "./textImageEdit.css";
 import { Comment } from "../Comment/comment";
 import { Loader } from "../../Utility/Loader/loader";
-
+import { useLocation } from "react-router-dom";
+import { notifySuccess } from "../../Utility/Notification/toast";
 export const TextImageEdit = ({ prop }) => {
   const { bookMark } = useSelector((store) => store.posts);
   const {
@@ -37,13 +42,15 @@ export const TextImageEdit = ({ prop }) => {
   const [img, setImg] = useState(imagesData);
   const user = JSON.parse(localStorage.getItem("user"));
   const { profilePic } = user;
-  const { users } = useSelector((store) => store.users);
+  const { users, token } = useSelector((store) => store.users);
   const [loader, setLoader] = useState(false);
   const [showComment, setShowComment] = useState(false);
   const getProfilePic = (username) => {
     return users.find((usersData) => usersData.username === username)
       .profilePic;
   };
+
+  const location = useLocation();
 
   /*
    For Textarea auto grow
@@ -77,14 +84,14 @@ export const TextImageEdit = ({ prop }) => {
    * For Image api request and Image handler
    */
 
-  const HandleImageSelected = async () => {
+  const handleImageSelected = async () => {
     const data = new FormData();
     data.append("file", fileInput.current.files[0]);
     data.append("upload_preset", "cmr8t2pi");
 
     try {
       setLoader(true);
-      await fetch("https://api.cloudinary.com/v1_1/depmzczni/image/upload", {
+      await fetch("https://api.cloudinary.com/v1_1/dqlfw4xi2/image/upload", {
         method: "POST",
         body: data,
       })
@@ -101,33 +108,38 @@ export const TextImageEdit = ({ prop }) => {
 
   // BookMark Handler
 
-  const BookMarkHandler = (_id) => {
+  const isBookMarkHandler = (_id) => {
     return bookMark.find((bookMarkData) => bookMarkData._id === _id);
   };
 
   // Post Handler
 
-  const EditHandler = () => {
+  const editHandler = () => {
     dispatch(
       editPost({
         postData: { content: text, postImage: img, disabledState: true },
         postId: _id,
+        token,
       })
     );
   };
 
-  const PostUpdate = () => {
+  const postUpdate = () => {
     dispatch(
       addPostToDataBase({
-        content: text,
-        postImage: img,
-        disabledState: true,
-        comments: [],
+        postData: {
+          content: text,
+          postImage: img,
+          disabledState: true,
+          comments: [],
+        },
+        token,
       })
     );
-    dispatch(ToggleModal(false));
+    dispatch(toggleModal(false));
     setText("");
     setImg(undefined);
+    notifySuccess("POST ADDED");
   };
 
   return (
@@ -140,7 +152,7 @@ export const TextImageEdit = ({ prop }) => {
           disabled={disabledState}
           autoFocus
           className="content-text-post"
-          placeholder="What is happening?"
+          placeholder={disabledState ? "" : "What is happening?"}
           onChange={(event) => onChangeHandler(event)}
         />
       </div>
@@ -159,12 +171,12 @@ export const TextImageEdit = ({ prop }) => {
               type="file"
               ref={fileInput}
               className="display-hidden"
-              onChange={() => HandleImageSelected()}
+              onChange={() => handleImageSelected()}
             />
           </label>
           <button
             className="button-primary button-modal"
-            onClick={() => (postState ? PostUpdate() : EditHandler())}
+            onClick={() => (postState ? postUpdate() : editHandler())}
           >
             {postState ? "POST" : "SAVE"}
           </button>
@@ -173,29 +185,38 @@ export const TextImageEdit = ({ prop }) => {
       {disabledState && (
         <div className="flex-col flex-center">
           <div className="flex-row features-wrapper">
-            {likeCount > 0 ? (
-              <h1
-                onClick={() => dispatch(dislikePost(_id))}
-                className="text-center"
-              >
-                <AiFillHeart className="fill-heart" />
-                {`${likeCount}Likes`}
-              </h1>
-            ) : (
-              <h1 onClick={() => dispatch(likePost(_id))}>
-                <AiOutlineHeart /> {`${likeCount}Likes`}
+            {location.pathname !== "/bookmark" &&
+              (likeCount > 0 ? (
+                <h1
+                  onClick={() => dispatch(dislikePost({ postId: _id, token }))}
+                  className="text-center"
+                >
+                  <AiFillHeart className="fill-heart" />
+                  {`${likeCount}Likes`}
+                </h1>
+              ) : (
+                <h1 onClick={() => dispatch(likePost({ postId: _id, token }))}>
+                  <AiOutlineHeart /> {`${likeCount}Likes`}
+                </h1>
+              ))}
+            {location.pathname !== "/bookmark" && (
+              <h1 onClick={() => setShowComment((state) => !state)}>
+                {" "}
+                <FaRegComment />{" "}
               </h1>
             )}
-            <h1 onClick={() => setShowComment((state) => !state)}>
-              {" "}
-              <FaRegComment />{" "}
-            </h1>
-            {BookMarkHandler(_id) ? (
-              <h1 onClick={() => dispatch(removeBookMarkPost(_id))}>
+            {isBookMarkHandler(_id) ? (
+              <h1
+                onClick={() =>
+                  dispatch(removeBookMarkPost({ postId: _id, token }))
+                }
+              >
                 <BsFillBookmarkFill />{" "}
               </h1>
             ) : (
-              <h1 onClick={() => dispatch(bookMarkPost(_id))}>
+              <h1
+                onClick={() => dispatch(bookMarkPost({ postId: _id, token }))}
+              >
                 <BsBookmark />
               </h1>
             )}

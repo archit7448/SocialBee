@@ -1,5 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import {
   Explore,
   Home,
@@ -15,12 +17,13 @@ import { useEffect } from "react";
 import { getUserData } from "./reducer/user";
 import { getPost } from "./reducer/post";
 import { useDispatch } from "react-redux";
-import { updateUserData } from "./reducer/userSlice";
-function App() {
+import { updateToken } from "./reducer/userSlice";
+function App() { 
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getUserData());
     dispatch(getPost());
+    dispatch(updateToken());
   }, []);
   return (
     <div className="App">
@@ -37,6 +40,7 @@ function App() {
           <Route path="/signup" element={<SignUp />} />
         </Route>
       </Routes>
+      <ToastContainer />
     </div>
   );
 }
