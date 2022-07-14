@@ -13,7 +13,7 @@ const userSlice = createSlice({
   name: "users",
   initialState,
   reducers: {
-    ToggleEdit: (state) => {
+    toggleEdit: (state) => {
       state.EditState = !state.EditState;
     },
     updateUserData: (state) => {
@@ -89,7 +89,7 @@ const userSlice = createSlice({
   },
 });
 
-export const { ToggleEdit, updateUserData, updateToken, updateUsersData } =
+export const { toggleEdit, updateUserData, updateToken, updateUsersData } =
   userSlice.actions;
 
 export default userSlice.reducer;

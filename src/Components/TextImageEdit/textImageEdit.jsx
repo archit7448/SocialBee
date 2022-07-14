@@ -1,6 +1,6 @@
 import { useRef, useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { ToggleModal } from "../../reducer/postSlice";
+import { toggleModal } from "../../reducer/postSlice";
 import {
   addPostToDataBase,
   bookMarkPost,
@@ -84,7 +84,7 @@ export const TextImageEdit = ({ prop }) => {
    * For Image api request and Image handler
    */
 
-  const HandleImageSelected = async () => {
+  const handleImageSelected = async () => {
     const data = new FormData();
     data.append("file", fileInput.current.files[0]);
     data.append("upload_preset", "cmr8t2pi");
@@ -108,13 +108,13 @@ export const TextImageEdit = ({ prop }) => {
 
   // BookMark Handler
 
-  const BookMarkHandler = (_id) => {
+  const isBookMarkHandler = (_id) => {
     return bookMark.find((bookMarkData) => bookMarkData._id === _id);
   };
 
   // Post Handler
 
-  const EditHandler = () => {
+  const editHandler = () => {
     dispatch(
       editPost({
         postData: { content: text, postImage: img, disabledState: true },
@@ -124,7 +124,7 @@ export const TextImageEdit = ({ prop }) => {
     );
   };
 
-  const PostUpdate = () => {
+  const postUpdate = () => {
     dispatch(
       addPostToDataBase({
         postData: {
@@ -136,7 +136,7 @@ export const TextImageEdit = ({ prop }) => {
         token,
       })
     );
-    dispatch(ToggleModal(false));
+    dispatch(toggleModal(false));
     setText("");
     setImg(undefined);
     notifySuccess("POST ADDED");
@@ -171,12 +171,12 @@ export const TextImageEdit = ({ prop }) => {
               type="file"
               ref={fileInput}
               className="display-hidden"
-              onChange={() => HandleImageSelected()}
+              onChange={() => handleImageSelected()}
             />
           </label>
           <button
             className="button-primary button-modal"
-            onClick={() => (postState ? PostUpdate() : EditHandler())}
+            onClick={() => (postState ? postUpdate() : editHandler())}
           >
             {postState ? "POST" : "SAVE"}
           </button>
@@ -205,7 +205,7 @@ export const TextImageEdit = ({ prop }) => {
                 <FaRegComment />{" "}
               </h1>
             )}
-            {BookMarkHandler(_id) ? (
+            {isBookMarkHandler(_id) ? (
               <h1
                 onClick={() =>
                   dispatch(removeBookMarkPost({ postId: _id, token }))

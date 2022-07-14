@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import "./post.css";
 import { TextImageEdit } from "../TextImageEdit/textImageEdit";
 import { useState } from "react";
-import { ToggleDisable } from "../../reducer/postSlice";
+import { toggleDisable } from "../../reducer/postSlice";
 import { AiOutlineClose, BiDotsVerticalRounded } from "../indexIcon";
 import { deletePost } from "../../reducer/post";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -27,10 +27,10 @@ export const Post = ({ prop }) => {
   const { likeCount } = likes;
   const EditHandler = () => {
     setShowEdit((state) => !state);
-    dispatch(ToggleDisable(_id));
+    dispatch(toggleDisable(_id));
   };
   const CloseHanlder = () => {
-    dispatch(ToggleDisable(_id));
+    dispatch(toggleDisable(_id));
   };
 
   const ProfilePerPageHandler = () => {

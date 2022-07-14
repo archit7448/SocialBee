@@ -48,7 +48,7 @@ export const Comment = ({ prop }) => {
     setParentHeight("auto");
     setTextAreaHeight("auto");
   };
-  const EditHandler = () => {
+  const editHandler = () => {
     dispatch(
       editCommentToDatabase({
         commentData: { textData: text, disabledState: false },
@@ -59,7 +59,7 @@ export const Comment = ({ prop }) => {
     );
     setShowEdit((state) => !state);
   };
-  const EditComment = () => {
+  const editComment = () => {
     dispatch(
       editCommentToDatabase({
         commentData: { textData: text, disabledState: true },
@@ -89,7 +89,7 @@ export const Comment = ({ prop }) => {
       ) : (
         <button
           className="comment-button"
-          onClick={() => (commentId ? EditComment() : addComment())}
+          onClick={() => (commentId ? editComment() : addComment())}
         >
           {commentId ? "SAVE" : "POST"}
         </button>
@@ -109,7 +109,7 @@ export const Comment = ({ prop }) => {
                 DELETE
               </h2>
               <hr />
-              <h2 className="cursor" onClick={() => EditHandler()}>
+              <h2 className="cursor" onClick={() => editHandler()}>
                 EDIT
               </h2>
             </div>

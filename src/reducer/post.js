@@ -1,6 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-const token = localStorage.getItem("token");
 
 export const getPost = createAsyncThunk("/api/posts", async () => {
   try {

@@ -8,7 +8,7 @@ import {
 import "./sidebar.css";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { ToggleModal } from "../../reducer/postSlice";
+import { toggleModal } from "../../reducer/postSlice";
 import logo from "../../assets/logo.svg";
 import { notifySuccess } from "../../Utility/Notification/toast";
 export const Sidebar = () => {
@@ -69,7 +69,7 @@ export const Sidebar = () => {
       </div>
       <div
         className="button-primary button-post flex-center"
-        onClick={() => dispatch(ToggleModal(true))}
+        onClick={() => dispatch(toggleModal(true))}
       >
         Post
       </div>

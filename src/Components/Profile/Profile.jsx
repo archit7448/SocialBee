@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import "./Profile.css";
 import { AiFillCamera } from "react-icons/ai";
-import { ToggleEdit } from "../../reducer/userSlice";
+import { toggleEdit } from "../../reducer/userSlice";
 import { Loader } from "../../Utility/Loader/loader";
 import { EditUser, followUser, unfollowUser } from "../../reducer/user";
 export const Profile = ({ prop }) => {
@@ -98,13 +98,13 @@ export const Profile = ({ prop }) => {
             className="button-secondary button-edit-profile"
             onClick={() =>
               EditState
-                ? dispatch(ToggleEdit())
+                ? dispatch(toggleEdit())
                 : dispatch(
                     EditUser({
                       userData: { bio: input, profilePic: profile },
                       token,
                     })
-                  ) && dispatch(ToggleEdit())
+                  ) && dispatch(toggleEdit())
             }
           >
             {EditState ? "EDIT" : "SAVE"}
