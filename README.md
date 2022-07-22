@@ -1,8 +1,8 @@
 <div align="center">
   
-#  SocialGram 
+#  SocialBee 
 
-### SocialGram is the platform for sharing views.
+### SociaBee is the platform for sharing views.
  
  
 
