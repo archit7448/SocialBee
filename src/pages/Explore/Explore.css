@@ -32,6 +32,17 @@ main {
   border-radius: 2.4rem;
   cursor: pointer;
 }
+.filter-wrapper {
+  width: 80%;
+  color: var(--color-icon);
+  margin: 2rem 0;
+  font-size: 2rem;
+  border-radius: 2rem;
+  padding: 5px 2rem;
+  box-shadow: 1px 1px 10px 0px var(--color-box-shadow-2),
+    -1px -1px 10px 0px var(--color-box-shadow-2);
+  justify-content: space-between;
+}
 @media screen and (max-width: 720px) {
   main {
     width: 100%;

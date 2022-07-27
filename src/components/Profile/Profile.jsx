@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import "./Profile.css";
 import { AiFillCamera } from "react-icons/ai";
 import { toggleEdit } from "../../reducer/userSlice";
-import { Loader } from "../../Utility/Loader/loader";
+import { Loader } from "../../utility/Loader/loader";
 import { EditUser, followUser, unfollowUser } from "../../reducer/user";
 export const Profile = ({ prop }) => {
   const { EditState } = useSelector((store) => store.users);

@@ -1,9 +1,9 @@
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { FollowSidebar, Sidebar, Profile, Post } from "../../Components";
-import { Loader } from "../../Utility/Loader/loader";
+import { FollowSidebar, Sidebar, Profile, Post } from "../../components/index";
+import { Loader } from "../../utility/Loader/loader";
 import logo from "../../assets/logo.svg";
-import { reverseArrayFunc } from "../../Utility/reverseArray/reverseArray";
+import { reverseArrayFunc } from "../../utility/ReverseArray/reverseArray";
 
 export const ProfilePerPage = () => {
   const { profileId } = useParams();

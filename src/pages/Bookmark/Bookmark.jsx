@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux";
-import { FollowSidebar, Sidebar, Post } from "../../Components";
+import { FollowSidebar, Sidebar, Post } from "../../components/index";
 import logo from "../../assets/logo.svg";
-import { reverseArrayFunc } from "../../Utility/reverseArray/reverseArray";
+import { reverseArrayFunc } from "../../utility/ReverseArray/reverseArray";
 export const Bookmark = () => {
   const { bookMark } = useSelector((store) => store.posts);
   let reverseArray = reverseArrayFunc(bookMark);

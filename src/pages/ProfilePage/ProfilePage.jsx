@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux";
-import { FollowSidebar, Sidebar, Profile, Post } from "../../Components";
+import { FollowSidebar, Sidebar, Profile, Post } from "../../components/index";
 import logo from "../../assets/logo.svg";
-import { reverseArrayFunc } from "../../Utility/reverseArray/reverseArray";
+import { reverseArrayFunc } from "../../utility/ReverseArray/reverseArray";
 export const ProfilePage = () => {
   const { userData } = useSelector((store) => store.users);
   const { posts } = useSelector((store) => store.posts);

@@ -15,8 +15,8 @@ export const Comment = ({ prop }) => {
   const [textAreaHeight, setTextAreaHeight] = useState("auto");
   const [parentHeight, setParentHeight] = useState("auto");
   const [showEdit, setShowEdit] = useState(false);
-  const { token } = useSelector((store) => store.users);
-  const user = JSON.parse(localStorage.getItem("user"));
+  const { token, userData } = useSelector((store) => store.users);
+
   const parentStyle = {
     minHeight: parentHeight,
   };
@@ -26,8 +26,8 @@ export const Comment = ({ prop }) => {
   };
 
   useEffect(() => {
-    setParentHeight(`${textAreaRef.current?.scrollHeight+5}px`);
-    setTextAreaHeight(`${textAreaRef.current?.scrollHeight+5}px`);
+    setParentHeight(`${textAreaRef.current?.scrollHeight + 5}px`);
+    setTextAreaHeight(`${textAreaRef.current?.scrollHeight + 5}px`);
   }, [text]);
 
   const onChangeHandler = (event) => {
@@ -94,7 +94,7 @@ export const Comment = ({ prop }) => {
           {commentId ? "SAVE" : "POST"}
         </button>
       )}
-      {user.profilePic === profilePic && disabledState ? (
+      {userData.profilePic === profilePic && disabledState ? (
         <div className="flex-row">
           {showEdit && (
             <div className="edit-comment-wrapper">

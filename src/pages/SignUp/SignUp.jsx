@@ -2,7 +2,7 @@ import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import logo from "../../assets/logo.svg";
-import { Loader } from "../../Utility/Loader/loader";
+import { Loader } from "../../utility/Loader/loader";
 import { AiFillCamera } from "react-icons/ai";
 import { useDispatch } from "react-redux";
 import {
@@ -10,7 +10,7 @@ import {
   updateUserData,
   updateUsersData,
 } from "../../reducer/userSlice";
-import { notifyError, notifySuccess } from "../../Utility/Notification/toast";
+import { notifyError, notifySuccess } from "../../utility/Notification/toast";
 
 export const SignUp = () => {
   const navigate = useNavigate();
