@@ -5,5 +5,5 @@ export { Explore } from "./Explore/Explore";
 export { SignIn } from "./SignIn/SignIn";
 export { SignUp } from "./SignUp/SignUp";
 export { PrivateRoute } from "./Auth/PrivateRoutes";
-export { RestrictedRoute } from "./Auth/PrivateRoutes";
+export { RestrictedRoute } from "./Auth/RestrictedRoutes";
 export { ProfilePerPage } from "./ProfilePerPage/ProfilePerPage";
