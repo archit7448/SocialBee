@@ -1,13 +1,19 @@
-import { FollowSidebar, Modal, Post, Sidebar } from "../../Components";
+import { FollowSidebar, Modal, Post, Sidebar } from "../../components/index";
 import { useDispatch, useSelector } from "react-redux";
 import "./Explore.css";
 import { toggleModal } from "../../reducer/postSlice";
 import logo from "../../assets/logo.svg";
-import { reverseArrayFunc } from "../../Utility/reverseArray/reverseArray";
+import {
+  HiOutlineSortAscending,
+  HiOutlineSortDescending,
+} from "react-icons/hi";
+import { reverseArrayFunc } from "../../utility/ReverseArray/reverseArray";
+import { useState } from "react";
 export const Explore = () => {
   const { posts, modal } = useSelector((store) => store.posts);
   const dispatch = useDispatch();
-  let reverseArray = reverseArrayFunc(posts);
+  const [filterState, setFilterState] = useState("latest");
+  let reverseArray = filterState === "latest" ? reverseArrayFunc(posts) : posts;
   return (
     <main>
       {modal && <Modal />}
@@ -23,6 +29,15 @@ export const Explore = () => {
         >
           <h2>What is in your mind?</h2>
           <button className="button-primary button-header-post">POST</button>
+        </div>
+        <div className="flex-row flex-space-between filter-wrapper">
+          <div onClick={() => setFilterState("oldest")} className="cursor">
+            <HiOutlineSortDescending /> Oldest
+          </div>
+          <hr />
+          <div onClick={() => setFilterState("latest")} className="cursor">
+            <HiOutlineSortAscending /> Latest
+          </div>
         </div>
         {reverseArray.length > 0 ? (
           reverseArray.map((data) => {

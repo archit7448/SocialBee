@@ -10,6 +10,23 @@ export const getPost = createAsyncThunk("/api/posts", async () => {
   }
 });
 
+export const getBookMark = createAsyncThunk(
+  "/api/users/bookmark",
+  async (token, { rejectWithValue }) => {
+    try {
+      const response = await axios.get("/api/users/bookmark", {
+        headers: {
+          authorization: token,
+        },
+      });
+      console.log(response);
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  }
+);
+
 /*Add PostData to User*/
 
 export const addPostToDataBase = createAsyncThunk(

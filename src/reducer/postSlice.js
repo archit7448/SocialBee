@@ -10,6 +10,7 @@ import {
   deletePost,
   dislikePost,
   editPost,
+  getBookMark,
   getPost,
   likePost,
   removeBookMarkPost,
@@ -46,6 +47,16 @@ const postSlice = createSlice({
       state.posts = action.payload.posts;
     },
     [getPost.rejected]: (state) => {
+      state.status = "rejected";
+    },
+    [getBookMark.pending]: (state) => {
+      state.status = "pending";
+    },
+    [getBookMark.fulfilled]: (state, action) => {
+      state.status = "fullfilled";
+      state.bookMark = action.payload.bookmarks;
+    },
+    [getBookMark.rejected]: (state) => {
       state.status = "rejected";
     },
     [addPostToDataBase.pending]: (state) => {

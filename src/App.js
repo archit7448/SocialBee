@@ -15,16 +15,22 @@ import {
 } from "./pages/index";
 import { useEffect } from "react";
 import { getUserData } from "./reducer/user";
-import { getPost } from "./reducer/post";
-import { useDispatch } from "react-redux";
+import { getBookMark, getPost } from "./reducer/post";
+import { useDispatch, useSelector } from "react-redux";
 import { updateToken } from "./reducer/userSlice";
-function App() { 
+function App() {
   const dispatch = useDispatch();
+  const { token } = useSelector((store) => store.users);
   useEffect(() => {
     dispatch(getUserData());
     dispatch(getPost());
     dispatch(updateToken());
   }, []);
+  useEffect(() => {
+    if (token !== null) {
+      dispatch(getBookMark(token));
+    }
+  }, [token]);
   return (
     <div className="App">
       <Routes>

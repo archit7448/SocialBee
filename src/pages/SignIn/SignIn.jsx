@@ -5,7 +5,7 @@ import axios from "axios";
 import { useDispatch } from "react-redux";
 import { updateToken, updateUserData } from "../../reducer/userSlice";
 import logo from "../../assets/logo.svg";
-import { notifyError, notifySuccess } from "../../Utility/Notification/toast";
+import { notifyError, notifySuccess } from "../../utility/Notification/toast";
 export const SignIn = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");

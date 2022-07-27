@@ -1,8 +1,8 @@
 import { useDispatch, useSelector } from "react-redux";
-import { FollowSidebar, Modal, Post, Sidebar } from "../../Components";
+import { FollowSidebar, Modal, Post, Sidebar } from "../../components/index";
 import { toggleModal } from "../../reducer/postSlice";
 import logo from "../../assets/logo.svg";
-import { reverseArrayFunc } from "../../Utility/reverseArray/reverseArray";
+import { reverseArrayFunc } from "../../utility/ReverseArray/reverseArray";
 export const Home = () => {
   const { posts, modal } = useSelector((store) => store.posts);
   const { userData } = useSelector((store) => store.users);

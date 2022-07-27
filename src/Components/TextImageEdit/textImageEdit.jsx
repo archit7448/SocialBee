@@ -19,9 +19,9 @@ import {
 } from "../indexIcon";
 import "./textImageEdit.css";
 import { Comment } from "../Comment/comment";
-import { Loader } from "../../Utility/Loader/loader";
+import { Loader } from "../../utility/Loader/loader";
 import { useLocation } from "react-router-dom";
-import { notifySuccess } from "../../Utility/Notification/toast";
+import { notifySuccess } from "../../utility/Notification/toast";
 export const TextImageEdit = ({ prop }) => {
   const { bookMark } = useSelector((store) => store.posts);
   const {
@@ -40,17 +40,16 @@ export const TextImageEdit = ({ prop }) => {
   const dispatch = useDispatch();
   const fileInput = useRef(null);
   const [img, setImg] = useState(imagesData);
-  const user = JSON.parse(localStorage.getItem("user"));
-  const { profilePic } = user;
-  const { users, token } = useSelector((store) => store.users);
+  const { userData, token, users } = useSelector((store) => store.users);
+  const { profilePic } = userData;
   const [loader, setLoader] = useState(false);
   const [showComment, setShowComment] = useState(false);
+
+  const location = useLocation();
   const getProfilePic = (username) => {
     return users.find((usersData) => usersData.username === username)
       .profilePic;
   };
-
-  const location = useLocation();
 
   /*
    For Textarea auto grow
