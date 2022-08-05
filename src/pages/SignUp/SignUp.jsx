@@ -76,6 +76,16 @@ export const SignUp = () => {
       console.log(error);
     }
   };
+
+
+
+  const fillDummyData = () => {
+    setFirstName("Walter")
+    setLastName("White")
+    setUsername("Heisenberg")
+    setPassword("Hello123456")
+    setProfile("https://res.cloudinary.com/dqlfw4xi2/image/upload/v1659717733/220px-Walter_White_S5B_mlibun.png")
+  };
   return (
     <main className="flex-center">
       <div className="login-container">
@@ -130,6 +140,9 @@ export const SignUp = () => {
           placeholder="Enter Password"
           onChange={(event) => setPassword(event.target.value)}
         />
+        <h3 className="guest-heading" onClick={() => fillDummyData()}>
+          Fill Dummy Data?
+        </h3>
         <button
           className="button-primary button-login"
           onClick={() => verifyHandler()}
