@@ -12,12 +12,11 @@ export const SignIn = () => {
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
 
-const errorHandler = () => {
-  notifyError("ERROR")
-   setEmail("")
-   setPassword("")
-}
-
+  const errorHandler = () => {
+    notifyError("ERROR");
+    setEmail("");
+    setPassword("");
+  };
 
   const LoginHandler = async (params) => {
     try {
@@ -30,13 +29,12 @@ const errorHandler = () => {
       notifySuccess("Login success");
     } catch (error) {
       console.log(error);
-      errorHandler()
+      errorHandler();
     }
   };
 
   const setGuestCredentials = () => {
-    setEmail("Archit_");
-    setPassword("architSingh123");
+    LoginHandler({ username: "Archit_", password: "architSingh123" });
   };
 
   return (
