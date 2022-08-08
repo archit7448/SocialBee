@@ -1,5 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import { notifyMessage, notifySuccess } from "../utility/Notification/toast";
 const token = localStorage.getItem("token");
 
 export const getUserData = createAsyncThunk("/api/users", async () => {
@@ -24,6 +25,7 @@ export const followUser = createAsyncThunk(
           },
         }
       );
+      notifySuccess("User Followed!");
       return response.data;
     } catch (error) {
       console.log(error);
@@ -44,6 +46,7 @@ export const unfollowUser = createAsyncThunk(
           },
         }
       );
+      notifySuccess("User Unfollowed!");
       return response.data;
     } catch (error) {
       console.log(error);
@@ -65,6 +68,7 @@ export const EditUser = createAsyncThunk(
           },
         }
       );
+      notifySuccess("Profile Edited");
       return response.data;
     } catch (error) {
       console.log(error);
