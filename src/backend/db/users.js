@@ -25,7 +25,7 @@ export const users = [
     lastName: "Wick",
     username: "Baba_Yaga",
     password: "JohnWick",
-    bio: "Wnat to do good deed",
+    bio: "Want to do good deed",
     createdAt: formatDate(),
     updatedAt: formatDate(),
     profilePic:

@@ -1,5 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import { notifyInfo, notifySuccess } from "../utility/Notification/toast";
 
 export const getPost = createAsyncThunk("/api/posts", async () => {
   try {
@@ -19,7 +20,6 @@ export const getBookMark = createAsyncThunk(
           authorization: token,
         },
       });
-      console.log(response);
       return response.data;
     } catch (error) {
       return rejectWithValue(error);
@@ -62,6 +62,7 @@ export const likePost = createAsyncThunk(
           },
         }
       );
+      notifySuccess("Liked!");
       return response.data;
     } catch (error) {
       console.log(error);
@@ -83,6 +84,7 @@ export const dislikePost = createAsyncThunk(
           },
         }
       );
+      notifySuccess("Like Removed");
       return response.data;
     } catch (error) {
       console.log(error);
@@ -104,6 +106,7 @@ export const bookMarkPost = createAsyncThunk(
           },
         }
       );
+      notifySuccess("Bookmarked!");
       return response.data;
     } catch (error) {
       console.log(error);
@@ -125,6 +128,7 @@ export const removeBookMarkPost = createAsyncThunk(
           },
         }
       );
+      notifySuccess("Bookmark Removed");
       return response.data;
     } catch (error) {
       console.log(error);
@@ -147,6 +151,7 @@ export const editPost = createAsyncThunk(
           },
         }
       );
+      notifySuccess("Edited!");
       return response.data;
     } catch (error) {
       console.log(error);
@@ -164,6 +169,7 @@ export const deletePost = createAsyncThunk(
           authorization: token,
         },
       });
+      notifySuccess("Deleted!");
       return response.data;
     } catch (error) {
       console.log(error);

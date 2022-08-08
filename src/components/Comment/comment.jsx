@@ -7,6 +7,7 @@ import {
 } from "../../reducer/comment";
 import { BiDotsVerticalRounded } from "react-icons/bi";
 import "./comment.css";
+import { notifyError } from "../../utility/Notification/toast";
 export const Comment = ({ prop }) => {
   const { disabledState, profilePic, textData, postId, commentId } = prop;
   const textAreaRef = useRef(null);
@@ -36,18 +37,7 @@ export const Comment = ({ prop }) => {
     setText(event.target.value);
   };
 
-  const addComment = () => {
-    dispatch(
-      addCommentToDatabase({
-        commentData: { textData: text, disabledState: true },
-        postId,
-        token,
-      })
-    );
-    setText("");
-    setParentHeight("auto");
-    setTextAreaHeight("auto");
-  };
+  // To change state for Edit
   const editHandler = () => {
     dispatch(
       editCommentToDatabase({
@@ -59,15 +49,39 @@ export const Comment = ({ prop }) => {
     );
     setShowEdit((state) => !state);
   };
+
+  //To add comment
+  const addComment = () => {
+    if (text.length > 0) {
+      dispatch(
+        addCommentToDatabase({
+          commentData: { textData: text, disabledState: true },
+          postId,
+          token,
+        })
+      );
+      setText("");
+      setParentHeight("auto");
+      setTextAreaHeight("auto");
+    } else {
+      notifyError("Empty Comment!");
+    }
+  };
+
+  // To edit comment
   const editComment = () => {
-    dispatch(
-      editCommentToDatabase({
-        commentData: { textData: text, disabledState: true },
-        postId,
-        commentId,
-        token,
-      })
-    );
+    if (text.length > 0) {
+      dispatch(
+        editCommentToDatabase({
+          commentData: { textData: text, disabledState: true },
+          postId,
+          commentId,
+          token,
+        })
+      );
+    } else {
+      notifyError("Empty Comment!");
+    }
   };
   return (
     <div style={parentStyle} className={disabledState ? "comment-wrapper" : ""}>
